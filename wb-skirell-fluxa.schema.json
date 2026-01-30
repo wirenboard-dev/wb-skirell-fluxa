@@ -1,0 +1,340 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"title": "config_title",
+
+	"configFile": {
+		"path": "/etc/wb-skirell-fluxa.conf"
+	},
+
+	"properties": {
+		"panels": {
+			"type": "array",
+			"items": {
+				"headerTemplate": "panel_title",
+				"title": "panel_element",
+				"type": "object",
+				"properties": {
+					"name": {
+						"title": "panel_name_title",
+						"type": "string",
+						"propertyOrder": 1
+					},
+					"id": {
+						"title": "panel_id_title",
+						"type": "string",
+						"propertyOrder": 2
+					},
+					"screens": {
+						"title": "screens_title",
+						"type": "array",
+						"items": {
+							"title": "screens_element",
+							"type": "object",
+							"properties": {
+								"blocks": {
+									"title": "blocks_element",
+									"type": "array",
+									"items": {
+										"title": "blocks_title",
+										"type": "object",
+										"oneOf": [
+											{"$ref": "#/definitions/block_scene"},
+											{"$ref": "#/definitions/block_switch"}
+										],
+										"options": {
+											"keep_oneof_values": false,
+											"disable_collapse": true,
+											"disable_edit_json": true,
+											"disable_properties": true,
+											"wb": {
+												"disable_panel": true
+											}
+										},
+										"_format": "wb-multiple"
+									},
+									"options": {
+										"disable_collapse": true,
+										"enable_array_copy": true,
+										"disable_array_delete_last_row": true
+									},
+									"_format": "tabs",
+									"propertyOrder": 2
+								}
+							},
+							"options": {
+								"disable_edit_json": true,
+								"disable_properties": true,
+								"wb": {
+									"disable_title": true
+								}
+							},
+							"_format": "wb-multiple"
+						},
+						"options": {
+							"enable_array_copy": true,
+							"disable_collapse": true
+						},
+						"_format": "tabs",
+						"propertyOrder": 3
+					}
+				},
+				"options": {
+					"disable_edit_json": true,
+					"disable_properties": true,
+					"collapsed": true
+				},
+				"required": ["id"],
+				"_format": "wb-object"
+			},
+			"options": {
+				"disable_array_delete_last_row": true,
+				"disable_array_delete_all_rows": true,
+				"enable_array_copy": true,
+                "wb": {
+					"disable_title": true,
+                    "disable_panel": true
+                }
+			},
+			"_format": "wb-multiple"
+		}
+	},
+
+	"definitions": {
+		"color_picker": {
+			"type": "string",
+			"enum": [
+				"color_red",
+				"color_pink",
+				"color_orange",
+				"color_yellow",
+				"color_mint",
+				"color_green",
+				"color_cyan",
+				"color_blue",
+				"color_dark_blue",
+				"color_indigo",
+				"color_purple",
+				"color_brown",
+				"color_white"
+			],
+			"options": {
+				"enum_titles": [
+					"Red",
+					"Pink",
+					"Orange",
+					"Yellow",
+					"Mint",
+					"Green",
+					"Cyan",
+					"Blue",
+					"Dark blue",
+					"Indigo",
+					"Purple",
+					"Brown",
+					"White"
+				]
+			}
+		},
+
+		"block_scene": {
+			"title": "block_scene_name",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["scene"],
+					"options": {"hidden": true}
+				},
+				"param_1": {
+					"title": "param_1_name",
+					"type": "string",
+					"options": {
+						"show_opt_in": true
+					},
+					"propertyOrder": 1
+				},
+				"param_2": {
+					"title": "param_2_name",
+					"type": "string",
+					"options": {
+						"show_opt_in": true
+					},
+					"propertyOrder": 2
+				},
+				"param_3": {
+					"title": "param_3_name",
+					"type": "string",
+					"options": {
+						"show_opt_in": true
+					},
+					"propertyOrder": 3
+				},
+				"icon": {
+					"title": "icon_name",
+					"type": "string",
+					"minLength": 1,
+					"propertyOrder": 4
+				},
+				"command_topic": {
+					"title": "command_topic_name",
+					"type": "string",
+					"minLength": 1,
+					"_format": "wb-autocomplete",
+					"propertyOrder": 5
+				},
+				"payload": {
+					"title": "payload_name",
+					"type": "string",
+					"minLength": 1,
+					"propertyOrder": 6
+				}
+			},
+			"required": ["type"]
+		},
+		"block_switch": {
+			"title": "block_switch_name",
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["switch"],
+					"options": {"hidden": true}
+				},
+				"param_1": {
+					"title": "param_1_name",
+					"type": "string",
+					"options": {
+						"show_opt_in": true
+					},
+					"propertyOrder": 1
+				},
+				"param_2": {
+					"title": "param_2_name",
+					"type": "string",
+					"options": {
+						"show_opt_in": true
+					},
+					"propertyOrder": 2
+				},
+				"icon": {
+					"title": "icon_name",
+					"type": "string",
+					"minLength": 1,
+					"propertyOrder": 3
+				},
+				"color": {
+					"title": "color_name",
+					"$ref": "#/definitions/color_picker",
+					"minLength": 1,
+					"propertyOrder": 4
+				},
+				"OnOff_command_topic": {
+					"title": "OnOff_command_topic_name",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"wb": {
+							"data": "devices"
+						}
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 5
+				},
+				"OnOff_state_topic": {
+					"title": "OnOff_state_topic_name",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"wb": {
+							"data": "devices"
+						}
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 6
+				},
+				"payload_on": {
+					"title": "payload_on_name",
+					"type": "string",
+					"minLength": 1,
+					"propertyOrder": 7
+				},
+				"payload_off": {
+					"title": "payload_off_name",
+					"type": "string",
+					"minLength": 1,
+					"propertyOrder": 8
+				}
+			},
+			"required": ["type", "color"]
+		}
+	},
+	"options": {
+		"wb": {
+			"disable_title": true
+		}
+	},
+
+	"translations": {
+		"en": {
+			"config_title": "Skirell Fluxa panels configurator"
+		},
+		"ru": {
+			"config_title": "Конфигуратор панелей Skirell Fluxa",
+
+			"panel_title": "{{ self.name }} ({{ self.id }})",
+
+			"panel_element": "Панель",
+			"panel_name_title": "Наименование панели",
+			"panel_id_title": "Индентификатор панели",
+
+			"screens_element": "Страница",
+			"screens_title": "Cтраницы",
+
+			"blocks_element": "Блоки на странице",
+			"blocks_title": "Блок",
+
+			"block_scene_name": "Сценарий",
+			"block_switch_name": "Переключатель",
+
+			"param_1_name": "Первый блок текста",
+			"param_2_name": "Второй блок текста",
+			"param_3_name": "Третий блок текста",
+
+			"icon_name": "Иконка, отображаемая в блоке",
+
+			"color_name": "Цвет блока в активном состоянии",
+
+			"command_topic_name": "Топик для отправки команды",
+
+			"payload_name": "Команда (сообщение) для отправки",
+
+			"OnOff_command_topic_name": "Топик для отправки команды",
+			"OnOff_state_topic_name": "Топик для получения команды",
+
+			"payload_on_name": "Команда включения",
+			"payload_on_desc": "Сообщение (команда) для включения",
+			"payload_on_case": "пример: 1 или true или ON",
+
+			"payload_off_name": "Команда выключения",
+			"payload_off_desc": "Сообщение (команда) для выключения",
+			"payload_off_case": "примыер: 0 или false или OFF",
+
+			"Red": "Красный",
+			"Pink": "Розовый",
+			"Orange": "Оранжевый",
+			"Yellow": "Жёлтый",
+			"Mint": "Мятный",
+			"Green": "Зелёный",
+			"Cyan": "Циановый",
+			"Blue": "Голубой",
+			"Dark blue": "Синий",
+			"Indigo": "Индиго",
+			"Purple": "Фиолетовый",
+			"Brown": "Коричневый",
+			"White": "Белый"
+		}
+	},
+
+	"author": "t.me/alexey_gamov"
+}
