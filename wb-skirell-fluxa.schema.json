@@ -4,7 +4,9 @@
 	"title": "config_title",
 
 	"configFile": {
-		"path": "/etc/wb-skirell-fluxa.conf"
+		"path": "/etc/wb-skirell-fluxa.conf",
+		"toJSON": ["/usr/lib/cgi-bin/skirell-fluxa.py", "-load"],
+		"fromJSON": ["/usr/lib/cgi-bin/skirell-fluxa.py", "-save"]
 	},
 
 	"properties": {
@@ -15,6 +17,14 @@
 				"title": "panel_element",
 				"type": "object",
 				"properties": {
+					"crc": {
+						"type": "string",
+						"options": {"hidden": true}
+					},
+					"link": {
+						"type": "string",
+						"options": {"hidden": true}
+					},
 					"name": {
 						"title": "panel_name_title",
 						"type": "string",
@@ -53,6 +63,8 @@
 										"type": "object",
 										"oneOf": [
 											{"$ref": "#/definitions/block_scene"},
+											{"$ref": "#/definitions/block_light"},
+											{"$ref": "#/definitions/block_cover"},
 											{"$ref": "#/definitions/block_sensor"},
 											{"$ref": "#/definitions/block_switch"}
 										],
@@ -237,6 +249,717 @@
 				}
 			},
 			"required": ["type", "icon", "command_topic", "payload"]
+		},
+
+		"block_light": {
+			"title": "block_light_name",
+			"type": "object",
+			"id": "light",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["light"],
+					"options": {"hidden": true}
+				},
+				"param_1": {
+					"title": "param_1_name",
+					"description": "param_1_desc",
+					"type": "string",
+					"options": {
+						"show_opt_in": true,
+						"inputAttributes": {
+							"placeholder": "params_light_case"
+						}
+					},
+					"propertyOrder": 1
+				},
+				"param_2": {
+					"title": "param_2_name",
+					"description": "param_2_desc",
+					"type": "string",
+					"options": {
+						"show_opt_in": true,
+						"inputAttributes": {
+							"placeholder": "params_light_case"
+						}
+					},
+					"propertyOrder": 2
+				},
+				"setting_name": {
+					"title": "setting_name",
+					"description": "setting_name_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {
+							"placeholder": "setting_name_light_case"
+						}
+					},
+					"propertyOrder": 3
+				},
+				"icon": {
+					"title": "icon_name",
+					"description": "icon_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {
+							"placeholder": "icon_light_case"
+						}
+					},
+					"propertyOrder": 4
+				},
+				"variant_type": {
+                    "title": "variant_type_name",
+					"description": "variant_type_name_desc",
+					"type": "string",
+					"enum": [
+						"light_variant_OnOff",
+						"light_variant_dimmer",
+						"light_variant_color",
+						"light_variant_temperature"
+					],
+					"options": {
+						"enum_titles": [
+							"light_variant_OnOff_name",
+							"light_variant_dimmer_name",
+							"light_variant_color_name",
+							"light_variant_temperature_name"
+						]
+					},
+					"default": "light_variant_OnOff",
+                    "propertyOrder": 5
+                },
+				"variant": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"watch": {"value": "light.variant_type"},
+							"template": "{{ value }}",
+							"options": {"hidden": true}
+						},
+						"OnOff_command_topic": {
+							"title": "OnOff_command_topic_name",
+							"description": "OnOff_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 1
+						},
+						"OnOff_state_topic": {
+							"title": "OnOff_state_topic_name",
+							"description": "OnOff_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 2
+						},
+						"payload_on": {
+							"title": "payload_on_name",
+							"description": "payload_on_desc",
+							"type": "string",
+							"minLength": 1,
+							"default": "1",
+							"options": {
+								"inputAttributes": {
+									"placeholder": "payload_on_case"
+								}
+							},
+							"propertyOrder": 3
+						},
+						"payload_off": {
+							"title": "payload_off_name",
+							"description": "payload_off_desc",
+							"type": "string",
+							"minLength": 1,
+							"default": "0",
+							"options": {
+								"inputAttributes": {
+									"placeholder": "payload_off_case"
+								}
+							},
+							"propertyOrder": 4
+						},
+						"brightness_command_topic": {
+							"title": "brightness_command_topic_name",
+							"description": "brightness_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 5
+						},
+						"brightness_state_topic": {
+							"title": "brightness_state_topic_name",
+							"description": "brightness_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 6
+						},
+						"brightness_scale": {
+							"title": "brightness_scale_name",
+							"description": "brightness_scale_desc",
+							"type": "integer",
+							"default": "100",
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]
+								},
+								"inputAttributes": {
+									"placeholder": "brightness_scale_case"
+								}
+							},
+							"propertyOrder": 7
+						},
+						"color_command_topic": {
+							"title": "color_command_topic_name",
+							"description": "color_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_color"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 8
+						},
+						"color_type": {
+							"title": "color_type_name",
+							"description": "color_type_desc",
+							"type": "string",
+							"enum": ["rgb", "hex", "hsv", "hsl"],
+							"options": {
+								"enum_titles": ["RGB", "HEX", "HSV", "HSL"],
+								"dependencies": {
+									"type": ["light_variant_color"]
+								}
+							},
+							"propertyOrder": 9
+						},
+						"temp_command_topic": {
+							"title": "temp_command_topic_name",
+							"description": "temp_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_temperature"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 10
+						},
+						"temp_state_topic": {
+							"title": "temp_state_topic_name",
+							"description": "temp_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_temperature"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 11
+						},
+						"min_temp": {
+							"title": "min_temp_name",
+							"description": "min_temp_desc",
+							"type": "integer",
+							"default": "0",
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_temperature"]
+								},
+								"inputAttributes": {
+									"placeholder": "min_temp_case"
+								}
+							},
+							"propertyOrder": 12
+						},
+						"max_temp": {
+							"title": "max_temp_name",
+							"description": "max_temp_desc",
+							"type": "integer",
+							"default": "100",		
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_temperature"]
+								},
+								"inputAttributes": {
+									"placeholder": "max_temp_case"
+								}
+							},
+							"propertyOrder": 13
+						},
+						"temp_measure": {
+							"title": "temp_measure_name",
+							"description": "temp_measure_desc",
+							"type": "string",
+							"minLength": 1,
+							"default": "%",
+							"options": {
+								"dependencies": {
+									"type": ["light_variant_temperature"]
+								},
+								"inputAttributes": {
+									"placeholder": "temp_measure_case"
+								}
+							},
+							"propertyOrder": 14
+						}
+					},
+					"options": {
+						"wb": {
+							"disable_title": true,
+							"disable_panel": true
+						}
+					},
+					"allOf": [
+						{
+							"if": {
+								"properties": {
+									"state": {"const": "light_variant_OnOff"}
+								}
+							},
+							"then": {
+								"required": [
+									"OnOff_command_topic",
+									"OnOff_state_topic",
+									"payload_on",
+									"payload_off"
+								]
+							}
+						},
+						{
+							"if": {
+								"properties": {
+									"state": {"const": "light_variant_dimmer"}
+								}
+							},
+							"then": {
+								"required": [
+									"OnOff_command_topic",
+									"OnOff_state_topic",
+									"payload_on",
+									"payload_off",
+									"brightness_command_topic",
+									"brightness_state_topic",
+									"brightness_scale"
+								]
+							}
+						},
+						{
+							"if": {
+								"properties": {
+									"state": {"const": "light_variant_color"}
+								}
+							},
+							"then": {
+								"required": [
+									"OnOff_command_topic",
+									"OnOff_state_topic",
+									"payload_on",
+									"payload_off",
+									"brightness_command_topic",
+									"brightness_state_topic",
+									"brightness_scale",
+									"color_command_topic",
+									"color_type"
+								]
+							}
+						},
+						{
+							"if": {
+								"properties": {
+									"state": {"const": "light_variant_temperature"}
+								}
+							},
+							"then": {
+								"required": [
+									"OnOff_command_topic",
+									"OnOff_state_topic",
+									"payload_on",
+									"payload_off",
+									"brightness_command_topic",
+									"brightness_state_topic",
+									"brightness_scale",
+									"temp_command_topic",
+									"temp_state_topic",
+									"min_temp",
+									"max_temp",
+									"temp_measure"
+								]
+							}
+						}
+					],
+					"propertyOrder": 6
+				}
+			},
+			"required": ["type", "setting_name", "icon", "variant_type"]
+		},
+
+		"block_cover": {
+			"title": "block_cover_name",
+			"type": "object",
+			"id": "cover",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["cover"],
+					"options": {"hidden": true}
+				},
+				"param_1": {
+					"title": "param_1_name",
+					"description": "param_1_desc",
+					"type": "string",
+					"options": {
+						"show_opt_in": true,
+						"inputAttributes": {
+							"placeholder": "params_cover_case"
+						}
+					},
+					"propertyOrder": 1
+				},
+				"param_2": {
+					"title": "param_2_name",
+					"description": "param_2_desc",
+					"type": "string",
+					"options": {
+						"show_opt_in": true,
+						"inputAttributes": {
+							"placeholder": "params_cover_case"
+						}
+					},
+					"propertyOrder": 2
+				},
+				"setting_name": {
+					"title": "setting_name",
+					"description": "setting_name_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {
+							"placeholder": "setting_name_cover_case"
+						}
+					},
+					"propertyOrder": 3
+				},
+				"icon_open": {
+					"title": "icon_open_name",
+					"description": "icon_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {
+							"placeholder": "icon_open_case"
+						}
+					},
+					"propertyOrder": 4
+				},
+				"icon_close": {
+					"title": "icon_close_name",
+					"description": "icon_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {
+							"placeholder": "icon_close_case"
+						}
+					},
+					"propertyOrder": 5
+				},
+				"variant_type": {
+					"title": "variant_type_name",
+					"description": "variant_type_name_desc",
+					"type": "string",
+					"enum": [
+						"cover_variant_slider",
+						"cover_variant_buttons"
+					],
+					"options": {
+						"enum_titles": [
+							"cover_variant_slider_name",
+							"cover_variant_buttons_name"
+						]
+					},
+					"default": "cover_variant_slider",
+					"propertyOrder": 6
+                },
+				"variant": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"watch": {"value": "cover.variant_type"},
+							"template": "{{ value }}",
+							"options": {"hidden": true}
+						},
+						"orientation": {
+							"title": "orientation_name",
+							"description": "orientation_name_desc",
+							"type": "string",
+							"enum": [
+								"Horizontal",
+								"Vertical"
+							],
+							"options": {
+								"enum_titles": [
+									"cover_horizontal_name",
+									"cover_vertical_name"
+								]
+							},
+							"default": "Horizontal",
+							"propertyOrder": 1
+						},
+						"open_command_topic": {
+							"title": "open_command_topic_name",
+							"description": "open_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 2
+						},
+						"close_command_topic": {
+							"title": "close_command_topic_name",
+							"description": "close_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 3
+						},
+						"stop_command_topic": {
+							"title": "stop_command_topic_name",
+							"description": "stop_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 4
+						},
+						"payload_open": {
+							"title": "payload_open_name",
+							"description": "payload_open_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {
+									"placeholder": "payload_open_case"
+								}
+							},
+							"propertyOrder": 5
+						},
+						"payload_close": {
+							"title": "payload_close_name",
+							"description": "payload_close_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {
+									"placeholder": "payload_close_case"
+								}
+							},
+							"propertyOrder": 6
+						},
+						"payload_stop": {
+							"title": "payload_stop_name",
+							"description": "payload_stop_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {
+									"placeholder": "payload_stop_case"
+								}
+							},
+							"propertyOrder": 7
+						},
+						"position_command_topic": {
+							"title": "position_command_topic_name",
+							"description": "position_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["cover_variant_slider"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 8
+						},
+						"position_state_topic": {
+							"title": "position_state_topic_name",
+							"description": "position_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {
+									"type": ["cover_variant_slider"]
+								},
+								"wb": {
+									"data": "devices"
+								}
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 9
+						},
+						"position_open": {
+							"title": "position_open_name",
+							"description": "position_open_desc",
+							"type": "integer",
+							"default": "100",
+							"options": {
+								"dependencies": {
+									"type": ["cover_variant_slider"]
+								},
+								"inputAttributes": {
+									"placeholder": "position_open_case"
+								}
+							},
+							"propertyOrder": 10
+						},
+						"position_close": {
+							"title": "position_close_name",
+							"description": "position_close_desc",
+							"type": "integer",
+							"default": "0",
+							"options": {
+								"dependencies": {
+									"type": ["cover_variant_slider"]
+								},
+								"inputAttributes": {
+									"placeholder": "position_close_case"
+								}
+							},
+							"propertyOrder": 11
+						},
+						"help_position_open": {
+							"title": "help_position_open_name",
+							"description": "help_position_open_desc",
+							"type": "integer",
+							"default": "",
+							"options": {
+								"dependencies": {
+									"type": ["cover_variant_slider"]
+								},
+								"inputAttributes": {
+									"placeholder": "help_position_open_case"
+								}
+							},
+							"propertyOrder": 12
+						},
+						"help_position_close": {
+							"title": "help_position_close_name",
+							"description": "help_position_close_desc",
+							"type": "integer",
+							"default": "",
+							"options": {
+								"dependencies": {
+									"type": ["cover_variant_slider"]
+								},
+								"inputAttributes": {
+									"placeholder": "help_position_close_case"
+								}
+							},
+							"propertyOrder": 13
+						}
+					},
+					"options": {
+						"wb": {
+							"disable_title": true,
+							"disable_panel": true
+						}
+					},
+					"if": {
+						"properties": {
+							"state": {"const": "cover_variant_slider"}
+						}
+					},
+					"then": {
+						"required": [
+							"orientation",
+							"open_command_topic",
+							"close_command_topic",
+							"stop_command_topic",
+							"payload_open",
+							"payload_close",
+							"payload_stop",
+							"position_command_topic",
+							"position_state_topic",
+							"position_open",
+							"position_close",
+							"help_position_open",
+							"help_position_close"
+						]
+					},
+					"else": {
+						"required": [
+							"orientation",
+							"open_command_topic",
+							"close_command_topic",
+							"stop_command_topic",
+							"payload_open",
+							"payload_close",
+							"payload_stop"
+						]
+					},
+					"propertyOrder": 7
+				}
+			},
+			"required": ["type", "setting_name", "icon_open", "icon_close", "variant_type"]
 		},
 
 		"block_sensor": {
@@ -466,7 +1189,7 @@
 		"ru": {
 			"config_title": "Конфигуратор панелей Skirell Fluxa",
 
-			"panel_title": "{{ self.name }} ({{ self.id }})",
+			"panel_title": "{{ self.name }} ({{ self.id }}) {{ self.link }}",
 
 			"panel_element": "Панель",
 			"panel_name_title": "Наименование панели",
@@ -482,6 +1205,8 @@
 			"blocks_title": "Блок",
 
 			"block_scene_name": "Сценарий",
+			"block_light_name": "Освещение",
+			"block_cover_name": "Шторы",
 			"block_sensor_name": "Датчик",
 			"block_switch_name": "Переключатель",
 
@@ -495,18 +1220,20 @@
 			"param_3_desc": "Используется для отображения текста в самом блоке",
 
 			"params_scene_case": "пример: название сценария, комнаты, режима или любой другой текст",
+			"params_light_case": "пример: название группы света, комнаты, типа или любой другой текст",
+			"params_cover_case": "пример: название шторы, комнаты, типа или любой другой текст",
 			"params_sensor_case": "пример: температура, влажность",
 			"params_switch_case": "пример: название переключателя, комнаты, режима или любой другой текст",
 
 			"icon_scene_case": "пример: weather-night",
+			"icon_light_case": "пример: floor-lamp",
 			"icon_switch_case": "пример: fan",
 
 			"icon_name": "Иконка, отображаемая в блоке",
 			"icon_desc": "Поддерживается широкий выбор иконок из набора <a href='https://pictogrammers.com/library/mdi' target='_blank'>Material Design Icons (MDI)</a>",
 
 			"color_name": "Цвет блока в активном состоянии",
-			"color_desc": "Используется как цвет для активного состояния устройства <i>(при состояние включен)</i>, стандартный серый цвет <i>(при состояние выключен)</i>",
-
+			"color_desc": "Используется как цвет для активного состояния устройства <i>(при состояние включен)</i>, стандартный серый цвет <i>(при состояние выключен)</i> <style>option[value='color_red']{color: #FF4D4D} option[value='color_pink']{color: #FF3D5E} option[value='color_orange']{color: #FF974D} option[value='color_yellow']{color: #FFE14D} option[value='color_mint']{color: #4DFFA6}option[value='color_green']{color: #4DFF5B} option[value='color_cyan']{color: #4DFFF0} option[value='color_blue']{color: #4DC3FF} option[value='color_dark_blue']{color: #3D6EFF} option[value='color_indigo']{color: #5D3DFF} option[value='color_purple']{color: #AE3DFF} option[value='color_brown']{color: #B34A00}</style>",
 
 			"command_topic_name": "Топик для отправки команды",
 			"command_topic_desc": "Командный MQTT-топик, в который будет отправляться сообщение (команда) при нажатии на блок",
@@ -562,6 +1289,108 @@
 
 			"setting_name": "Название устройства в настройках",
 			"setting_name_desc": "Используется для изменения текста заголовка на странице управления устройством",
+			"setting_name_light_case": "пример: Торшер или Бра",
+			"setting_name_cover_case": "пример: Штора или Ворота",
+
+			"variant_type_name": "Подтип устройства",
+			"variant_type_name_desc": "Используется для выбора механики работы устройства",
+
+			"light_variant_OnOff_name": "Включить / выключить",
+			"light_variant_dimmer_name": "Диммер",
+			"light_variant_color_name": "Диммер + RGB",
+			"light_variant_temperature_name": "Диммер + температура цвета",
+
+			"brightness_command_topic_name": "Топик для отправки яркости",
+			"brightness_command_topic_desc": "Командный MQTT-топик, куда отправляется новое значение яркости",
+
+			"brightness_state_topic_name": "Топик обратной связи для получения яркости",
+			"brightness_state_topic_desc": "MQTT-топик обратной связи, от куда приходят значения яркости устройства",
+
+			"brightness_scale_name": "Максимальное значение яркости",
+			"brightness_scale_desc": "Граница яркости для целевого устройства",
+			"brightness_scale_case": "пример: 100 или 255 или 1024",
+
+			"color_command_topic_name": "Топик для отправки цвета",
+			"color_command_topic_desc": "Командный MQTT-топик, куда отправляется значение выбранного цвета",
+
+			"color_type_name": "Формат цвета",
+			"color_type_desc": "Возможные значения: RGB (255;0;0), HEX (#FFFFFF), HSV (255;100;100), HSL (255;100;100)",
+
+			"temp_command_topic_name": "Топик для отправки температуры",
+			"temp_command_topic_desc": "Командный MQTT-топик, куда отправляется новое значение температуры света",
+
+			"temp_state_topic_name": "Топик обратной связи для получения температуры",
+			"temp_state_topic_desc": "MQTT-топик обратной связи, от куда приходят значения температуры света",
+
+			"min_temp_name": "Минимальная температура",
+			"min_temp_desc": "Минимальное значение температуры света для целевого устройства",
+			"min_temp_case": "пример: 0 или 2700",
+
+			"max_temp_name": "Максимальная температура",
+			"max_temp_desc": "Максимальное значение температуры света для целевого устройства",
+			"max_temp_case": "пример: 100 или 6500",
+
+			"temp_measure_name": "Единица измерения температуры",
+			"temp_measure_desc": "Устанавливается в зависимости от единиц на целевом устройстве",
+			"temp_measure_case": "пример: K или %",
+
+			"icon_open_name": "Иконка в открытом положении",
+			"icon_open_case": "пример: curtains",
+
+			"icon_close_name": "Иконка в закрытом положении",
+			"icon_close_case": "пример: curtains-closed",
+
+			"cover_variant_slider_name": "Слайдеры",
+			"cover_variant_buttons_name": "Кнопки",
+
+			"orientation_name": "Направление",
+			"orientation_name_desc": "Используется для установки ориентации устройства",
+
+			"cover_horizontal_name": "Горизонтально",
+			"cover_vertical_name": "Вертикально",
+
+			"open_command_topic_name": "Топик для отправки команды на открытие",
+			"open_command_topic_desc": "Командный MQTT-топик, куда отправляется сообщение (команда) на открытие",
+
+			"close_command_topic_name": "Топик для отправки команды на закрытие",
+			"close_command_topic_desc": "Командный MQTT-топик, куда отправляется сообщение (команда) на закрытие",
+
+			"stop_command_topic_name": "Топик для отправки команды на остановку",
+			"stop_command_topic_desc": "Командный MQTT-топик, куда отправляется сообщение (команда) на остановку",
+
+			"payload_open_name": "Команда открытия",
+			"payload_open_desc": "Сообщение (команда) для открытия",
+			"payload_open_case": "пример: 100 или open или true",
+
+			"payload_close_name": "Команда закрытия",
+			"payload_close_desc": "Сообщение (команда) для закрытия",
+			"payload_close_case": "пример: 0 или close или false",
+
+			"payload_stop_name": "Команда остановки",
+			"payload_stop_desc": "Сообщение (команда) для остановки",
+			"payload_stop_case": "пример: stop или true",
+
+			"position_command_topic_name": "Топик для установки позиции",
+			"position_command_topic_desc": "Командный MQTT-топик, куда отправляется новая заданная позиция для устройства",
+
+			"position_state_topic_name": "Топик обратной связи для получения позиции",
+			"position_state_topic_desc": "MQTT-топик обратной связи, от куда приходят значения о текущей позиции устройства",
+
+			"position_open_name": "Конечная позиция в положении открыто",
+			"position_open_desc": "Порог обозначающий максимальный процент открытия устройства",
+			"position_open_case": "пример: 100",
+
+			"position_close_name": "Конечная позиция в положении закрыто",
+			"position_close_desc": "Порог обозначающий минимальный процент закрытия устройства",
+			"position_close_case": "пример: 0",
+
+			"help_position_open_name": "Вспомогательная конечная позиция в положении открыто",
+			"help_position_open_desc": "Порог для округления до максимальной позиции",
+			"help_position_open_case": "пример: 95",
+
+			"help_position_close_name": "Вспомогательная конечная позиция в положении закрыто",
+			"help_position_close_desc": "Порог для округления до минимальной позиции",
+			"help_position_close_case": "пример: 5",
 
 			"Red": "Красный",
 			"Pink": "Розовый",
