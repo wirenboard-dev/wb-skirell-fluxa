@@ -18,6 +18,7 @@
 				"type": "object",
 				"properties": {
 					"crc": {
+						"description": "style",
 						"type": "string",
 						"options": {"hidden": true}
 					},
@@ -29,9 +30,7 @@
 						"title": "panel_name_title",
 						"type": "string",
 						"options": {
-							"inputAttributes": {
-								"placeholder":  "panel_name_case"
-							}
+							"inputAttributes": {"placeholder":  "panel_name_case"}
 						},
 						"propertyOrder": 1
 					},
@@ -41,9 +40,7 @@
 						"pattern": "^[0-9A-Fa-f]{12}$",
 						"options": {
 							"patternmessage": "panel_id_pattern",
-							"inputAttributes": {
-								"placeholder":  "XXXXXXXXXXXX"
-							}
+							"inputAttributes": {"placeholder":  "XXXXXXXXXXXX"}
 						},
 						"propertyOrder": 2
 					},
@@ -64,6 +61,7 @@
 										"oneOf": [
 											{"$ref": "#/definitions/block_scene"},
 											{"$ref": "#/definitions/block_light"},
+											{"$ref": "#/definitions/block_climate"},
 											{"$ref": "#/definitions/block_cover"},
 											{"$ref": "#/definitions/block_sensor"},
 											{"$ref": "#/definitions/block_switch"}
@@ -73,9 +71,7 @@
 											"disable_collapse": true,
 											"disable_edit_json": true,
 											"disable_properties": true,
-											"wb": {
-												"disable_panel": true
-											}
+											"wb": {"disable_panel": true}
 										},
 										"_format": "wb-multiple"
 									},
@@ -91,9 +87,7 @@
 							"options": {
 								"disable_edit_json": true,
 								"disable_properties": true,
-								"wb": {
-									"disable_title": true
-								}
+								"wb": {"disable_title": true}
 							},
 							"_format": "wb-multiple"
 						},
@@ -110,8 +104,8 @@
 					"disable_properties": true,
 					"collapsed": true
 				},
-				"required": ["id"],
-				"_format": "wb-object"
+				"_format": "wb-object",
+				"required": ["id"]
 			},
 			"options": {
 				"disable_array_delete_last_row": true,
@@ -127,45 +121,10 @@
 	},
 
 	"definitions": {
-		"color_picker": {
-			"type": "string",
-			"enum": [
-				"color_red",
-				"color_pink",
-				"color_orange",
-				"color_yellow",
-				"color_mint",
-				"color_green",
-				"color_cyan",
-				"color_blue",
-				"color_dark_blue",
-				"color_indigo",
-				"color_purple",
-				"color_brown",
-				"color_white"
-			],
-			"options": {
-				"enum_titles": [
-					"Red",
-					"Pink",
-					"Orange",
-					"Yellow",
-					"Mint",
-					"Green",
-					"Cyan",
-					"Blue",
-					"Dark blue",
-					"Indigo",
-					"Purple",
-					"Brown",
-					"White"
-				]
-			}
-		},
-
 		"block_scene": {
 			"title": "block_scene_name",
 			"type": "object",
+			"_format": "grid",
 			"properties": {
 				"type": {
 					"type": "string",
@@ -179,9 +138,8 @@
 					"default": "",
 					"options": {
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_scene_case"
-						}
+						"grid_columns": 6,
+						"inputAttributes": {"placeholder": "params_scene_case"}
 					},
 					"propertyOrder": 1
 				},
@@ -191,9 +149,8 @@
 					"type": "string",
 					"options": {
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_scene_case"
-						}
+						"grid_columns": 6,
+						"inputAttributes": {"placeholder": "params_scene_case"}
 					},
 					"propertyOrder": 2
 				},
@@ -202,10 +159,9 @@
 					"description": "param_3_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_scene_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_scene_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 3
 				},
@@ -215,9 +171,8 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"inputAttributes": {
-							"placeholder": "icon_scene_case"
-						}
+						"inputAttributes": {"placeholder": "icon_scene_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 4
 				},
@@ -227,9 +182,9 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"wb": {
-							"data": "devices"
-						}
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
 					},
 					"_format": "wb-autocomplete",
 					"propertyOrder": 5
@@ -241,9 +196,8 @@
 					"minLength": 1,
 					"default": "1",
 					"options": {
-						"inputAttributes": {
-							"placeholder": "payload_case"
-						}
+						"inputAttributes": {"placeholder": "payload_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 6
 				}
@@ -255,6 +209,7 @@
 			"title": "block_light_name",
 			"type": "object",
 			"id": "light",
+			"_format": "grid",
 			"properties": {
 				"type": {
 					"type": "string",
@@ -266,10 +221,9 @@
 					"description": "param_1_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_light_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_light_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 1
 				},
@@ -278,10 +232,9 @@
 					"description": "param_2_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_light_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_light_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 2
 				},
@@ -291,9 +244,8 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"inputAttributes": {
-							"placeholder": "setting_name_light_case"
-						}
+						"inputAttributes": {"placeholder": "setting_name_light_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 3
 				},
@@ -303,9 +255,8 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"inputAttributes": {
-							"placeholder": "icon_light_case"
-						}
+						"inputAttributes": {"placeholder": "icon_light_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 4
 				},
@@ -325,18 +276,20 @@
 							"light_variant_dimmer_name",
 							"light_variant_color_name",
 							"light_variant_temperature_name"
-						]
+						],
+						"grid_columns": 12
 					},
 					"default": "light_variant_OnOff",
                     "propertyOrder": 5
                 },
 				"variant": {
 					"type": "object",
+					"_format": "grid",
 					"properties": {
 						"type": {
 							"type": "string",
 							"watch": {"value": "light.variant_type"},
-							"template": "{{ value }}",
+							"template": "{{value}}",
 							"options": {"hidden": true}
 						},
 						"OnOff_command_topic": {
@@ -345,9 +298,9 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"wb": {
-									"data": "devices"
-								}
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 1
@@ -358,9 +311,9 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"wb": {
-									"data": "devices"
-								}
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 2
@@ -372,9 +325,8 @@
 							"minLength": 1,
 							"default": "1",
 							"options": {
-								"inputAttributes": {
-									"placeholder": "payload_on_case"
-								}
+								"inputAttributes": {"placeholder": "payload_on_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 3
 						},
@@ -385,9 +337,8 @@
 							"minLength": 1,
 							"default": "0",
 							"options": {
-								"inputAttributes": {
-									"placeholder": "payload_off_case"
-								}
+								"inputAttributes": {"placeholder": "payload_off_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 4
 						},
@@ -397,12 +348,10 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"dependencies": {
-									"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]
-								},
-								"wb": {
-									"data": "devices"
-								}
+								"dependencies": {"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 5
@@ -413,12 +362,10 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"dependencies": {
-									"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]
-								},
-								"wb": {
-									"data": "devices"
-								}
+								"dependencies": {"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 6
@@ -429,105 +376,11 @@
 							"type": "integer",
 							"default": "100",
 							"options": {
-								"dependencies": {
-									"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]
-								},
-								"inputAttributes": {
-									"placeholder": "brightness_scale_case"
-								}
+								"dependencies": {"type": ["light_variant_dimmer", "light_variant_color", "light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "brightness_scale_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 7
-						},
-						"color_command_topic": {
-							"title": "color_command_topic_name",
-							"description": "color_command_topic_desc",
-							"type": "string",
-							"minLength": 1,
-							"options": {
-								"dependencies": {
-									"type": ["light_variant_color"]
-								},
-								"wb": {
-									"data": "devices"
-								}
-							},
-							"_format": "wb-autocomplete",
-							"propertyOrder": 8
-						},
-						"color_type": {
-							"title": "color_type_name",
-							"description": "color_type_desc",
-							"type": "string",
-							"enum": ["rgb", "hex", "hsv", "hsl"],
-							"options": {
-								"enum_titles": ["RGB", "HEX", "HSV", "HSL"],
-								"dependencies": {
-									"type": ["light_variant_color"]
-								}
-							},
-							"propertyOrder": 9
-						},
-						"temp_command_topic": {
-							"title": "temp_command_topic_name",
-							"description": "temp_command_topic_desc",
-							"type": "string",
-							"minLength": 1,
-							"options": {
-								"dependencies": {
-									"type": ["light_variant_temperature"]
-								},
-								"wb": {
-									"data": "devices"
-								}
-							},
-							"_format": "wb-autocomplete",
-							"propertyOrder": 10
-						},
-						"temp_state_topic": {
-							"title": "temp_state_topic_name",
-							"description": "temp_state_topic_desc",
-							"type": "string",
-							"minLength": 1,
-							"options": {
-								"dependencies": {
-									"type": ["light_variant_temperature"]
-								},
-								"wb": {
-									"data": "devices"
-								}
-							},
-							"_format": "wb-autocomplete",
-							"propertyOrder": 11
-						},
-						"min_temp": {
-							"title": "min_temp_name",
-							"description": "min_temp_desc",
-							"type": "integer",
-							"default": "0",
-							"options": {
-								"dependencies": {
-									"type": ["light_variant_temperature"]
-								},
-								"inputAttributes": {
-									"placeholder": "min_temp_case"
-								}
-							},
-							"propertyOrder": 12
-						},
-						"max_temp": {
-							"title": "max_temp_name",
-							"description": "max_temp_desc",
-							"type": "integer",
-							"default": "100",		
-							"options": {
-								"dependencies": {
-									"type": ["light_variant_temperature"]
-								},
-								"inputAttributes": {
-									"placeholder": "max_temp_case"
-								}
-							},
-							"propertyOrder": 13
 						},
 						"temp_measure": {
 							"title": "temp_measure_name",
@@ -536,12 +389,87 @@
 							"minLength": 1,
 							"default": "%",
 							"options": {
-								"dependencies": {
-									"type": ["light_variant_temperature"]
-								},
-								"inputAttributes": {
-									"placeholder": "temp_measure_case"
-								}
+								"dependencies": {"type": ["light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "temp_measure_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 8
+						},
+						"temp_command_topic": {
+							"title": "temp_command_topic_name",
+							"description": "temp_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 9
+						},
+						"temp_state_topic": {
+							"title": "temp_state_topic_name",
+							"description": "temp_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 10
+						},
+						"min_temp": {
+							"title": "min_temp_name",
+							"description": "min_temp_desc",
+							"type": "integer",
+							"default": "0",
+							"options": {
+								"dependencies": {"type": ["light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "min_temp_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 11
+						},
+						"max_temp": {
+							"title": "max_temp_name",
+							"description": "max_temp_desc",
+							"type": "integer",
+							"default": "100",		
+							"options": {
+								"dependencies": {"type": ["light_variant_temperature"]},
+								"inputAttributes": {"placeholder": "max_temp_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 12
+						},
+						"color_command_topic": {
+							"title": "color_command_topic_name",
+							"description": "color_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["light_variant_color"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 13
+						},
+						"color_type": {
+							"title": "color_type_name",
+							"description": "color_type_desc",
+							"type": "string",
+							"enum": ["rgb", "hex", "hsv", "hsl"],
+							"options": {
+								"dependencies": {"type": ["light_variant_color"]},
+								"enum_titles": ["RGB", "HEX", "HSV", "HSL"],
+								"grid_columns": 6
 							},
 							"propertyOrder": 14
 						}
@@ -556,7 +484,7 @@
 						{
 							"if": {
 								"properties": {
-									"state": {"const": "light_variant_OnOff"}
+									"variant_type": {"const": "light_variant_OnOff"}
 								}
 							},
 							"then": {
@@ -571,7 +499,7 @@
 						{
 							"if": {
 								"properties": {
-									"state": {"const": "light_variant_dimmer"}
+									"variant_type": {"const": "light_variant_dimmer"}
 								}
 							},
 							"then": {
@@ -589,7 +517,7 @@
 						{
 							"if": {
 								"properties": {
-									"state": {"const": "light_variant_color"}
+									"variant_type": {"const": "light_variant_color"}
 								}
 							},
 							"then": {
@@ -609,7 +537,7 @@
 						{
 							"if": {
 								"properties": {
-									"state": {"const": "light_variant_temperature"}
+									"variant_type": {"const": "light_variant_temperature"}
 								}
 							},
 							"then": {
@@ -621,11 +549,11 @@
 									"brightness_command_topic",
 									"brightness_state_topic",
 									"brightness_scale",
+									"temp_measure",
 									"temp_command_topic",
 									"temp_state_topic",
 									"min_temp",
-									"max_temp",
-									"temp_measure"
+									"max_temp"
 								]
 							}
 						}
@@ -636,10 +564,536 @@
 			"required": ["type", "setting_name", "icon", "variant_type"]
 		},
 
+		"block_climate": {
+			"title": "block_climate_name",
+			"type": "object",
+			"id": "climate",
+			"_format": "grid",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["climate"],
+					"options": {"hidden": true}
+				},
+				"param_1": {
+					"title": "param_1_name",
+					"description": "param_1_desc",
+					"type": "string",
+					"options": {
+						"show_opt_in": true,
+						"grid_columns": 6,
+						"inputAttributes": {"placeholder": "params_climate_case"}
+					},
+					"propertyOrder": 1
+				},
+				"param_2": {
+					"title": "param_2_name",
+					"description": "param_2_desc",
+					"type": "string",
+					"options": {
+						"inputAttributes": {"placeholder": "params_climate_case"},
+						"show_opt_in": true,
+						"grid_columns": 6
+					},
+					"propertyOrder": 2
+				},
+				"setting_name": {
+					"title": "setting_name",
+					"description": "setting_name_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "setting_name_climate_case"},
+						"grid_columns": 6
+					},
+					"propertyOrder": 3
+				},
+				"icon": {
+					"title": "icon_name",
+					"description": "icon_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "icon_climate_case"},
+						"grid_columns": 6
+					},
+					"propertyOrder": 4
+				},
+				"measure": {
+					"title": "measure_name",
+					"description": "measure_desc",
+					"type": "string",
+					"options": {
+						"inputAttributes": {"placeholder": "measure_climate_case"},
+						"show_opt_in": true,
+						"grid_columns": 6
+					},
+					"propertyOrder": 5
+				},
+				"color": {
+					"title": "color_name",
+					"description": "color_desc",
+					"$ref": "#/definitions/color_picker",
+					"default": "color_green",
+					"minLength": 1,
+					"propertyOrder": 6
+				},
+				"variant_type": {
+					"title": "variant_type_name",
+					"description": "variant_type_name_desc",
+					"type": "string",
+					"enum": [
+						"climate_variant_cond",
+						"climate_variant_thermostat"
+					],
+					"options": {
+						"enum_titles": [
+							"climate_variant_cond_name",
+							"climate_variant_thermostat_name"
+						],
+						"grid_columns": 6
+					},
+					"default": "climate_variant_cond",
+					"propertyOrder": 7
+                },
+				"variant": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string",
+							"watch": {"value": "climate.variant_type"},
+							"template": "{{value}}",
+							"options": {"hidden": true}
+						},
+						"OnOff_command_topic": {
+							"title": "OnOff_command_topic_name",
+							"description": "OnOff_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 1
+						},
+						"OnOff_state_topic": {
+							"title": "OnOff_state_topic_name",
+							"description": "OnOff_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 2
+						},
+						"payload_on": {
+							"title": "payload_on_name",
+							"description": "payload_on_desc",
+							"type": "string",
+							"minLength": 1,
+							"default": "1",
+							"options": {
+								"inputAttributes": {"placeholder": "payload_on_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 3
+						},
+						"payload_off": {
+							"title": "payload_off_name",
+							"description": "payload_off_desc",
+							"type": "string",
+							"minLength": 1,
+							"default": "0",
+							"options": {
+								"inputAttributes": {"placeholder": "payload_off_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 4
+						},
+						"targetTemp_command_topic": {
+							"title": "targetTemp_command_topic_name",
+							"description": "targetTemp_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 5
+						},
+						"targetTemp_state_topic": {
+							"title": "targetTemp_state_topic_name",
+							"description": "targetTemp_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 6
+						},
+						"min_target": {
+							"title": "min_target_name",
+							"description": "min_target_desc",
+							"type": "integer",
+							"default": "10",
+							"options": {
+								"inputAttributes": {"placeholder": "min_target_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 7
+						},
+						"max_target": {
+							"title": "max_target_name",
+							"description": "max_target_desc",
+							"type": "integer",
+							"default": "30",		
+							"options": {
+								"inputAttributes": {"placeholder": "max_target_case"},
+								"grid_columns": 6
+							},
+							"propertyOrder": 8
+						},
+						"mode_command_topic": {
+							"title": "mode_command_topic_name",
+							"description": "mode_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["climate_variant_cond"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 9
+						},
+						"mode_state_topic": {
+							"title": "mode_state_topic_name",
+							"description": "mode_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["climate_variant_cond"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 10
+						},
+						"fan_command_topic": {
+							"title": "fan_command_topic_name",
+							"description": "fan_command_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["climate_variant_cond"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 11
+						},
+						"fan_state_topic": {
+							"title": "fan_state_topic_name",
+							"description": "fan_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["climate_variant_cond"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 12
+						},
+						"currentTemp_state_topic": {
+							"title": "currentTemp_state_topic_name",
+							"description": "currentTemp_state_topic_desc",
+							"type": "string",
+							"minLength": 1,
+							"options": {
+								"dependencies": {"type": ["climate_variant_cond"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
+							},
+							"_format": "wb-autocomplete",
+							"propertyOrder": 13
+						},
+						"modes": {
+							"title": "modes_name",
+							"type": "array",
+							"minItems": 2,
+							"maxItems": 5,
+							"items": {
+								"title": "modes_desc",
+								"type": "object",
+								"properties": {
+									"icon": {
+										"title": "modes_icon_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "icon_sensors_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 1
+									},
+									"title": {
+										"title": "modes_title_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "modes_title_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 2
+									},
+									"color": {
+										"title": "modes_color_name",
+										"$ref": "#/definitions/color_picker",
+										"default": "color_green",
+										"minLength": 1,
+										"propertyOrder": 3
+									},
+									"payload": {
+										"title": "modes_payload_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "modes_payload_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 4
+									}
+								},
+								"required": ["icon", "title", "color", "payload"]
+							},
+							"options": {
+								"dependencies": {
+									"type": ["climate_variant_cond"]
+								},
+								"wb": {
+									"disable_title": true,
+									"disable_panel": true
+								},
+								"disable_collapse": true,
+								"array_controls_top": true,
+								"disable_array_delete_last_row": true
+							},
+							"_format": "table",
+							"propertyOrder": 14
+						},
+						"fan_modes": {
+							"title": "fan_modes_name",
+							"type": "array",
+							"maxItems": 5,
+							"items": {
+								"title": "fan_modes_desc",
+								"type": "object",
+								"properties": {
+									"icon": {
+										"title": "modes_icon_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "icon_sensors_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 1
+									},
+									"payload": {
+										"title": "modes_payload_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "fan_modes_payload_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 4
+									}
+								},
+								"required": ["icon", "payload"]
+							},
+							"options": {
+								"dependencies": {
+									"type": ["climate_variant_cond"]
+								},
+								"wb": {
+									"disable_title": true,
+									"disable_panel": true
+								},
+								"disable_collapse": true,
+								"array_controls_top": true,
+								"disable_array_delete_last_row": true
+							},
+							"_format": "table",
+							"propertyOrder": 15
+						},
+						"sensors": {
+							"title": "sensors_name",
+							"type": "array",
+							"maxItems": 3,
+							"items": {
+								"title": "sensors_desc",
+								"type": "object",
+								"properties": {
+									"icon": {
+										"title": "icon_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "icon_sensors_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 1
+									},
+									"measure": {
+										"title": "measure_name",
+										"type": "string",
+										"options": {
+											"inputAttributes": {"placeholder": "measure_sensor_case"},
+											"grid_columns": 6
+										},
+										"propertyOrder": 2
+									},
+									"state_topic": {
+										"title": "state_topic_name",
+										"type": "string",
+										"minLength": 1,
+										"options": {
+											"inputAttributes": {"placeholder": "topic_format"},
+											"wb": {"data": "devices"},
+											"grid_columns": 6
+										},
+										"_format": "wb-autocomplete",
+										"propertyOrder": 3
+									}
+								},
+								"required": ["icon", "state_topic"]
+							},
+							"options": {
+								"dependencies": {
+									"type": ["climate_variant_thermostat"]
+								},
+								"wb": {
+									"disable_title": true,
+									"disable_panel": true
+								},
+								"disable_collapse": true,
+								"array_controls_top": true,
+								"disable_array_delete_last_row": true
+							},
+							"_format": "table",
+							"propertyOrder": 16
+						}
+					},
+					"options": {
+						"wb": {
+							"disable_title": true,
+							"disable_panel": true
+						}
+					},
+					"if": {
+						"properties": {
+							"variant_type": {"const": "climate_variant_cond"}
+						}
+					},
+					"then": {
+						"required": [
+							"OnOff_command_topic",
+							"OnOff_state_topic",
+							"payload_on",
+							"payload_off",
+							"mode_command_topic",
+							"mode_state_topic",
+							"currentTemp_state_topic",
+							"targetTemp_command_topic",
+							"targetTemp_state_topic",
+							"min_target",
+							"max_target",
+							"fan_command_topic",
+							"fan_state_topic",
+							"modes",
+							"fan_modes"
+						]
+					},
+					"else": {
+						"required": [
+							"OnOff_command_topic",
+							"OnOff_state_topic",
+							"payload_on",
+							"payload_off",
+							"targetTemp_command_topic",
+							"targetTemp_state_topic",
+							"min_target",
+							"max_target",
+							"sensors"
+						]
+					},
+					"_format": "grid",
+					"propertyOrder": 8
+				}
+			},
+			"definitions": {
+				"color_picker": {
+					"type": "string",
+					"enum": [
+						"color_red",
+						"color_pink",
+						"color_orange",
+						"color_yellow",
+						"color_mint",
+						"color_green",
+						"color_cyan",
+						"color_blue",
+						"color_dark_blue",
+						"color_indigo",
+						"color_purple",
+						"color_brown",
+						"color_white"
+					],
+					"options": {
+						"enum_titles": [
+							"Red",
+							"Pink",
+							"Orange",
+							"Yellow",
+							"Mint",
+							"Green",
+							"Cyan",
+							"Blue",
+							"Dark blue",
+							"Indigo",
+							"Purple",
+							"Brown",
+							"White"
+						],
+						"grid_columns": 6
+					}
+				}
+			},
+			"required": ["type", "setting_name", "icon", "measure", "color", "variant_type"]
+		},
+
 		"block_cover": {
 			"title": "block_cover_name",
 			"type": "object",
 			"id": "cover",
+			"_format": "grid",
 			"properties": {
 				"type": {
 					"type": "string",
@@ -651,10 +1105,9 @@
 					"description": "param_1_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_cover_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_cover_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 1
 				},
@@ -663,24 +1116,11 @@
 					"description": "param_2_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_cover_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_cover_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 2
-				},
-				"setting_name": {
-					"title": "setting_name",
-					"description": "setting_name_desc",
-					"type": "string",
-					"minLength": 1,
-					"options": {
-						"inputAttributes": {
-							"placeholder": "setting_name_cover_case"
-						}
-					},
-					"propertyOrder": 3
 				},
 				"icon_open": {
 					"title": "icon_open_name",
@@ -688,11 +1128,10 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"inputAttributes": {
-							"placeholder": "icon_open_case"
-						}
+						"inputAttributes": {"placeholder": "icon_open_case"},
+						"grid_columns": 6
 					},
-					"propertyOrder": 4
+					"propertyOrder": 3
 				},
 				"icon_close": {
 					"title": "icon_close_name",
@@ -700,11 +1139,10 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"inputAttributes": {
-							"placeholder": "icon_close_case"
-						}
+						"inputAttributes": {"placeholder": "icon_close_case"},
+						"grid_columns": 6
 					},
-					"propertyOrder": 5
+					"propertyOrder": 4
 				},
 				"variant_type": {
 					"title": "variant_type_name",
@@ -718,18 +1156,30 @@
 						"enum_titles": [
 							"cover_variant_slider_name",
 							"cover_variant_buttons_name"
-						]
+						],
+						"grid_columns": 6
 					},
 					"default": "cover_variant_slider",
-					"propertyOrder": 6
+					"propertyOrder": 5
                 },
+				"setting_name": {
+					"title": "setting_name",
+					"description": "setting_name_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "setting_name_cover_case"},
+						"grid_columns": 6
+					},
+					"propertyOrder": 6
+				},
 				"variant": {
 					"type": "object",
 					"properties": {
 						"type": {
 							"type": "string",
 							"watch": {"value": "cover.variant_type"},
-							"template": "{{ value }}",
+							"template": "{{value}}",
 							"options": {"hidden": true}
 						},
 						"orientation": {
@@ -744,7 +1194,8 @@
 								"enum_titles": [
 									"cover_horizontal_name",
 									"cover_vertical_name"
-								]
+								],
+								"grid_columns": 12
 							},
 							"default": "Horizontal",
 							"propertyOrder": 1
@@ -755,9 +1206,9 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"wb": {
-									"data": "devices"
-								}
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 4
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 2
@@ -768,9 +1219,9 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"wb": {
-									"data": "devices"
-								}
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 4
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 3
@@ -781,9 +1232,9 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"wb": {
-									"data": "devices"
-								}
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 4
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 4
@@ -794,9 +1245,8 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"inputAttributes": {
-									"placeholder": "payload_open_case"
-								}
+								"inputAttributes": {"placeholder": "payload_open_case"},
+								"grid_columns": 4
 							},
 							"propertyOrder": 5
 						},
@@ -806,9 +1256,8 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"inputAttributes": {
-									"placeholder": "payload_close_case"
-								}
+								"inputAttributes": {"placeholder": "payload_close_case"},
+								"grid_columns": 4
 							},
 							"propertyOrder": 6
 						},
@@ -818,9 +1267,8 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"inputAttributes": {
-									"placeholder": "payload_stop_case"
-								}
+								"inputAttributes": {"placeholder": "payload_stop_case"},
+								"grid_columns": 4
 							},
 							"propertyOrder": 7
 						},
@@ -830,12 +1278,10 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"dependencies": {
-									"type": ["cover_variant_slider"]
-								},
-								"wb": {
-									"data": "devices"
-								}
+								"dependencies": {"type": ["cover_variant_slider"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 8
@@ -846,12 +1292,10 @@
 							"type": "string",
 							"minLength": 1,
 							"options": {
-								"dependencies": {
-									"type": ["cover_variant_slider"]
-								},
-								"wb": {
-									"data": "devices"
-								}
+								"dependencies": {"type": ["cover_variant_slider"]},
+								"inputAttributes": {"placeholder": "topic_format"},
+								"wb": {"data": "devices"},
+								"grid_columns": 6
 							},
 							"_format": "wb-autocomplete",
 							"propertyOrder": 9
@@ -862,12 +1306,9 @@
 							"type": "integer",
 							"default": "100",
 							"options": {
-								"dependencies": {
-									"type": ["cover_variant_slider"]
-								},
-								"inputAttributes": {
-									"placeholder": "position_open_case"
-								}
+								"dependencies": {"type": ["cover_variant_slider"]},
+								"inputAttributes": {"placeholder": "position_open_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 10
 						},
@@ -877,12 +1318,9 @@
 							"type": "integer",
 							"default": "0",
 							"options": {
-								"dependencies": {
-									"type": ["cover_variant_slider"]
-								},
-								"inputAttributes": {
-									"placeholder": "position_close_case"
-								}
+								"dependencies": {"type": ["cover_variant_slider"]},
+								"inputAttributes": {"placeholder": "position_close_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 11
 						},
@@ -890,14 +1328,11 @@
 							"title": "help_position_open_name",
 							"description": "help_position_open_desc",
 							"type": "integer",
-							"default": "",
+							"default": "95",
 							"options": {
-								"dependencies": {
-									"type": ["cover_variant_slider"]
-								},
-								"inputAttributes": {
-									"placeholder": "help_position_open_case"
-								}
+								"dependencies": {"type": ["cover_variant_slider"]},
+								"inputAttributes": {"placeholder": "help_position_open_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 12
 						},
@@ -905,16 +1340,104 @@
 							"title": "help_position_close_name",
 							"description": "help_position_close_desc",
 							"type": "integer",
-							"default": "",
+							"default": "5",
 							"options": {
-								"dependencies": {
-									"type": ["cover_variant_slider"]
-								},
-								"inputAttributes": {
-									"placeholder": "help_position_close_case"
-								}
+								"dependencies": {"type": ["cover_variant_slider"]},
+								"inputAttributes": {"placeholder": "help_position_close_case"},
+								"grid_columns": 6
 							},
 							"propertyOrder": 13
+						},
+						"lameli": {
+							"title": "lameli_name",
+							"type": "object",
+							"_format": "grid",
+							"properties": {
+								"open_command_topic": {
+									"title": "open_command_topic_name",
+									"description": "open_command_topic_desc",
+									"type": "string",
+									"minLength": 1,
+									"options": {
+										"inputAttributes": {"placeholder": "topic_format"},
+										"wb": {"data": "devices"},
+										"grid_columns": 4
+									},
+									"_format": "wb-autocomplete",
+									"propertyOrder": 1
+								},
+								"close_command_topic": {
+									"title": "close_command_topic_name",
+									"description": "close_command_topic_desc",
+									"type": "string",
+									"minLength": 1,
+									"options": {
+										"inputAttributes": {"placeholder": "topic_format"},
+										"wb": {"data": "devices"},
+										"grid_columns": 4
+									},
+									"_format": "wb-autocomplete",
+									"propertyOrder": 2
+								},
+								"stop_command_topic": {
+									"title": "stop_command_topic_name",
+									"description": "stop_command_topic_desc",
+									"type": "string",
+									"minLength": 1,
+									"options": {
+										"inputAttributes": {"placeholder": "topic_format"},
+										"wb": {"data": "devices"},
+										"grid_columns": 4
+									},
+									"_format": "wb-autocomplete",
+									"propertyOrder": 3
+								},
+								"payload_open": {
+									"title": "payload_open_name",
+									"description": "payload_open_desc",
+									"type": "string",
+									"minLength": 1,
+									"options": {
+										"inputAttributes": {"placeholder": "payload_open_case"},
+										"grid_columns": 4
+									},
+									"propertyOrder": 4
+								},
+								"payload_close": {
+									"title": "payload_close_name",
+									"description": "payload_close_desc",
+									"type": "string",
+									"minLength": 1,
+									"options": {
+										"inputAttributes": {"placeholder": "payload_close_case"},
+										"grid_columns": 4
+									},
+									"propertyOrder": 5
+								},
+								"payload_stop": {
+									"title": "payload_stop_name",
+									"description": "payload_stop_desc",
+									"type": "string",
+									"minLength": 1,
+									"options": {
+										"inputAttributes": {"placeholder": "payload_stop_case"},
+										"grid_columns": 4
+									},
+									"propertyOrder": 6
+								}
+							},
+							"options": {
+								"show_opt_in": true,
+								"disable_collapse": true,
+								"disable_edit_json": true,
+								"disable_properties": true,
+								"wb": {"disable_panel": true}
+							},
+							"required": [
+								"open_command_topic", "close_command_topic", "stop_command_topic",
+								"payload_open", "payload_close", "payload_stop"
+							],
+							"propertyOrder": 14
 						}
 					},
 					"options": {
@@ -925,7 +1448,7 @@
 					},
 					"if": {
 						"properties": {
-							"state": {"const": "cover_variant_slider"}
+							"variant_type": {"const": "cover_variant_slider"}
 						}
 					},
 					"then": {
@@ -956,6 +1479,7 @@
 							"payload_stop"
 						]
 					},
+					"_format": "grid",
 					"propertyOrder": 7
 				}
 			},
@@ -965,6 +1489,7 @@
 		"block_sensor": {
 			"title": "block_sensor_name",
 			"type": "object",
+			"_format": "grid",
 			"properties": {
 				"type": {
 					"type": "string",
@@ -976,10 +1501,9 @@
 					"description": "param_1_sensor_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_sensor_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_sensor_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 1
 				},
@@ -988,12 +1512,10 @@
 					"description": "measure_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "measure_sensor_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "measure_case"
-						}
+						"grid_columns": 6
 					},
-					"format": "select",
 					"propertyOrder": 2
 				},
 				"min": {
@@ -1001,33 +1523,45 @@
 					"description": "min_desc",
 					"type": "integer",
 					"default": "",
+					"options": {
+						"grid_columns": 6
+					},
 					"propertyOrder": 3
-				},
-				"stage_1": {
-					"title": "stage_1_name",
-					"description": "stage_1_desc",
-					"type": "integer",
-					"default": "",
-					"propertyOrder": 4
-				},
-				"stage_2": {
-					"title": "stage_2_name",
-					"description": "stage_2_desc",
-					"type": "integer",
-					"default": "",
-					"propertyOrder": 5
 				},
 				"max": {
 					"title": "max_name",
 					"description": "max_desc",
 					"type": "integer",
 					"default": "",
+					"options": {
+						"grid_columns": 6
+					},
+					"propertyOrder": 4
+				},
+				"stage_1": {
+					"title": "stage_1_name",
+					"description": "stage_1_desc",
+					"type": "integer",
+					"default": "",
+					"options": {
+						"grid_columns": 6
+					},
+					"propertyOrder": 5
+				},
+				"stage_2": {
+					"title": "stage_2_name",
+					"description": "stage_2_desc",
+					"type": "integer",
+					"default": "",
+					"options": {
+						"grid_columns": 6
+					},
 					"propertyOrder": 6
 				},
 				"color_1": {
 					"title": "color_1_name",
 					"description": "color_1_desc",
-					"$ref": "#/definitions/color_picker",
+					"$ref": "#/definitions/block_climate/definitions/color_picker",
 					"default": "color_green",
 					"minLength": 1,
 					"propertyOrder": 7
@@ -1035,8 +1569,7 @@
 				"color_2": {
 					"title": "color_2_name",
 					"description": "color_2_desc",
-					"type": "string",
-					"$ref": "#/definitions/color_picker",
+					"$ref": "#/definitions/block_climate/definitions/color_picker",
 					"default": "color_yellow",
 					"minLength": 1,
 					"propertyOrder": 8
@@ -1044,8 +1577,7 @@
 				"color_3": {
 					"title": "color_3_name",
 					"description": "color_3_desc",
-					"type": "string",
-					"$ref": "#/definitions/color_picker",
+					"$ref": "#/definitions/block_climate/definitions/color_picker",
 					"default": "color_red",
 					"minLength": 1,
 					"propertyOrder": 9
@@ -1056,9 +1588,9 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"wb": {
-							"data": "devices"
-						}
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
 					},
 					"_format": "wb-autocomplete",
 					"propertyOrder": 10
@@ -1070,6 +1602,7 @@
 		"block_switch": {
 			"title": "block_switch_name",
 			"type": "object",
+			"_format": "grid",
 			"properties": {
 				"type": {
 					"type": "string",
@@ -1081,10 +1614,9 @@
 					"description": "param_1_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_switch_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_switch_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 1
 				},
@@ -1093,10 +1625,9 @@
 					"description": "param_2_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_switch_case"},
 						"show_opt_in": true,
-						"inputAttributes": {
-							"placeholder": "params_switch_case"
-						}
+						"grid_columns": 6
 					},
 					"propertyOrder": 2
 				},
@@ -1106,16 +1637,15 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"inputAttributes": {
-							"placeholder": "icon_switch_case"
-						}
+						"inputAttributes": {"placeholder": "icon_switch_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 3
 				},
 				"color": {
 					"title": "color_name",
 					"description": "color_desc",
-					"$ref": "#/definitions/color_picker",
+					"$ref": "#/definitions/block_climate/definitions/color_picker",
 					"default": "color_indigo",
 					"minLength": 1,
 					"propertyOrder": 4
@@ -1126,9 +1656,9 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"wb": {
-							"data": "devices"
-						}
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
 					},
 					"_format": "wb-autocomplete",
 					"propertyOrder": 5
@@ -1139,9 +1669,9 @@
 					"type": "string",
 					"minLength": 1,
 					"options": {
-						"wb": {
-							"data": "devices"
-						}
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
 					},
 					"_format": "wb-autocomplete",
 					"propertyOrder": 6
@@ -1153,9 +1683,8 @@
 					"minLength": 1,
 					"default": "1",
 					"options": {
-						"inputAttributes": {
-							"placeholder": "payload_on_case"
-						}
+						"inputAttributes": {"placeholder": "payload_on_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 7
 				},
@@ -1166,14 +1695,18 @@
 					"minLength": 1,
 					"default": "0",
 					"options": {
-						"inputAttributes": {
-							"placeholder": "payload_off_case"
-						}
+						"inputAttributes": {"placeholder": "payload_off_case"},
+						"grid_columns": 6
 					},
 					"propertyOrder": 8
 				}
 			},
 			"required": ["type", "icon", "color", "OnOff_command_topic", "OnOff_state_topic", "payload_on", "payload_off"]
+		},
+
+		"color_picker": {
+			"$ref": "#/definitions/block_climate/definitions/color_picker",
+			"note": "prevent bug while using $ref from another block"
 		}
 	},
 	"options": {
@@ -1188,6 +1721,8 @@
 		},
 		"ru": {
 			"config_title": "Конфигуратор панелей Skirell Fluxa",
+
+			"style": "<- css inject -><style>h3.je-header label abbr { font-size: var(--font-size-medium) } abbr.dash { display: inline-block; border-bottom: 1px dashed }</style>",
 
 			"panel_title": "{{ self.name }} ({{ self.id }}) {{ self.link }}",
 
@@ -1206,11 +1741,14 @@
 
 			"block_scene_name": "Сценарий",
 			"block_light_name": "Освещение",
+			"block_climate_name": "Климат",
 			"block_cover_name": "Шторы",
 			"block_sensor_name": "Датчик",
 			"block_switch_name": "Переключатель",
 
-			"param_1_name": "Первый блок текста (маленький размер)",
+			"topic_format": "формат: device/control или полный топик mqtt",
+
+			"param_1_name": "Первый блок текста (малый размер)",
 			"param_1_desc": "Используется для отображения текста в самом блоке",
 	
 			"param_2_name": "Второй блок текста (средний размер)",
@@ -1219,49 +1757,53 @@
 			"param_3_name": "Третий блок текста (большой размер)",
 			"param_3_desc": "Используется для отображения текста в самом блоке",
 
-			"params_scene_case": "пример: название сценария, комнаты, режима или любой другой текст",
-			"params_light_case": "пример: название группы света, комнаты, типа или любой другой текст",
-			"params_cover_case": "пример: название шторы, комнаты, типа или любой другой текст",
-			"params_sensor_case": "пример: температура, влажность",
-			"params_switch_case": "пример: название переключателя, комнаты, режима или любой другой текст",
+			"params_scene_case": "пример: название сценария · комнаты · режима · любой другой текст",
+			"params_light_case": "пример: название группы света · комнаты · типа · любой другой текст",
+			"params_climate_case": "пример: название устройства · комнаты · типа · любой другой текст",
+			"params_cover_case": "пример: название шторы · комнаты · типа · любой другой текст",
+			"params_sensor_case": "пример: температура · влажность",
+			"params_switch_case": "пример: название переключателя · комнаты · режима · любой другой текст",
 
 			"icon_scene_case": "пример: weather-night",
 			"icon_light_case": "пример: floor-lamp",
+			"icon_climate_case": "пример: air-conditioner",
+			"icon_sensors_case": "пример: fire · snowflake",
 			"icon_switch_case": "пример: fan",
 
 			"icon_name": "Иконка, отображаемая в блоке",
 			"icon_desc": "Поддерживается широкий выбор иконок из набора <a href='https://pictogrammers.com/library/mdi' target='_blank'>Material Design Icons (MDI)</a>",
 
 			"color_name": "Цвет блока в активном состоянии",
-			"color_desc": "Используется как цвет для активного состояния устройства <i>(при состояние включен)</i>, стандартный серый цвет <i>(при состояние выключен)</i> <style>option[value='color_red']{color: #FF4D4D} option[value='color_pink']{color: #FF3D5E} option[value='color_orange']{color: #FF974D} option[value='color_yellow']{color: #FFE14D} option[value='color_mint']{color: #4DFFA6}option[value='color_green']{color: #4DFF5B} option[value='color_cyan']{color: #4DFFF0} option[value='color_blue']{color: #4DC3FF} option[value='color_dark_blue']{color: #3D6EFF} option[value='color_indigo']{color: #5D3DFF} option[value='color_purple']{color: #AE3DFF} option[value='color_brown']{color: #B34A00}</style>",
+			"color_desc": "Используется как цвет активного состояния устройства, серый цвет – неактивно <style>option[value='color_red']{color: #FF4D4D} option[value='color_pink']{color: #FF3D5E} option[value='color_orange']{color: #FF974D} option[value='color_yellow']{color: #FFE14D} option[value='color_mint']{color: #4DFFA6}option[value='color_green']{color: #4DFF5B} option[value='color_cyan']{color: #4DFFF0} option[value='color_blue']{color: #4DC3FF} option[value='color_dark_blue']{color: #3D6EFF} option[value='color_indigo']{color: #5D3DFF} option[value='color_purple']{color: #AE3DFF} option[value='color_brown']{color: #B34A00}</style>",
 
 			"command_topic_name": "Топик для отправки команды",
-			"command_topic_desc": "Командный MQTT-топик, в который будет отправляться сообщение (команда) при нажатии на блок",
+			"command_topic_desc": "Командный топик, в который отправляется значение при нажатии на блок",
 
 			"payload_name": "Команда (сообщение) для отправки",
-			"payload_desc": "Значение, отправляемое в командный MQTT-топик при нажатии на блок",
+			"payload_desc": "Значение, отправляемое в командный топик при нажатии на блок",
 			"payload_case": "пример: 1",
 
 			"OnOff_command_topic_name": "Топик для отправки команды",
-			"OnOff_command_topic_desc": "Командный MQTT-топик, в который будет отправляться сообщение (команда) при нажатии на блок",
+			"OnOff_command_topic_desc": "Командный топик, в который отправляется значение при нажатии на блок",
 
 			"OnOff_state_topic_name": "Топик для получения команды",
-			"OnOff_state_topic_desc": "MQTT-топик обратной связи, откуда будет приходить сообщения о включении или выключении устройства",
+			"OnOff_state_topic_desc": "Топик обратной связи, куда будет приходить состояние устройства",
 
 			"payload_on_name": "Команда включения",
 			"payload_on_desc": "Сообщение (команда) для включения",
-			"payload_on_case": "пример: 1 или true или ON",
+			"payload_on_case": "пример: 1 · true · ON",
 
 			"payload_off_name": "Команда выключения",
 			"payload_off_desc": "Сообщение (команда) для выключения",
-			"payload_off_case": "примыер: 0 или false или OFF",
+			"payload_off_case": "примыер: 0 · false · OFF",
 
 			"param_1_sensor_name": "Название датчика",
-			"param_1_sensor_desc": "Используется для изменения текста в самом блоке. Может применяться и в других целях",
+			"param_1_sensor_desc": "Используется для изменения текста в самом блоке",
 
-			"measure_name": "Единицы измерения",
-			"measure_desc": "Используется для изменения текста в самом блоке. Может применяться и в других целях",
-			"measure_case": "пример: °C или % или ppm или ppb",
+			"measure_name": "Отображаемая единица измерения",
+			"measure_desc": "Используется для изменения текста в самом блоке",
+			"measure_sensor_case": "пример: °C · % · ppm · ppb",
+			"measure_climate_case": "пример: °C · °F · %",
 
 			"min_name": "Минимальная граница шкалы для цветового индикатора",
 			"min_desc": "Задаёт минимальное значение в самом блоке",
@@ -1285,54 +1827,104 @@
 			"color_3_desc": "Используется для определения цветового состояния кругового индикатора при сравнении с текущим значением датчика",
 
 			"state_topic_name": "Топик для получения данных",
-			"state_topic_desc": "MQTT-топик обратной связи, от куда приходят показания от датчика",
+			"state_topic_desc": "Топик обратной связи, от куда приходят показания от выбранного датчика",
 
 			"setting_name": "Название устройства в настройках",
-			"setting_name_desc": "Используется для изменения текста заголовка на странице управления устройством",
-			"setting_name_light_case": "пример: Торшер или Бра",
-			"setting_name_cover_case": "пример: Штора или Ворота",
+			"setting_name_desc": "Используется для изменения заголовка на странице управления",
+			"setting_name_light_case": "пример: Торшер · бра",
+			"setting_name_climate_case": "пример: Кондиционер · теплый пол",
+			"setting_name_cover_case": "пример: Штора · ворота",
 
-			"variant_type_name": "Подтип устройства",
-			"variant_type_name_desc": "Используется для выбора механики работы устройства",
+			"variant_type_name": "<abbr class='dash'>Подтип устройства</abbr>",
+			"variant_type_name_desc": "Используется для выбора механики работы устройства и интерфейса панели",
 
-			"light_variant_OnOff_name": "Включить / выключить",
+			"light_variant_OnOff_name": "Реле",
 			"light_variant_dimmer_name": "Диммер",
 			"light_variant_color_name": "Диммер + RGB",
 			"light_variant_temperature_name": "Диммер + температура цвета",
 
 			"brightness_command_topic_name": "Топик для отправки яркости",
-			"brightness_command_topic_desc": "Командный MQTT-топик, куда отправляется новое значение яркости",
+			"brightness_command_topic_desc": "Командный топик, куда отправляется новое значение яркости",
 
 			"brightness_state_topic_name": "Топик обратной связи для получения яркости",
-			"brightness_state_topic_desc": "MQTT-топик обратной связи, от куда приходят значения яркости устройства",
+			"brightness_state_topic_desc": "Топик обратной связи, от куда приходит значение яркости устройства",
 
 			"brightness_scale_name": "Максимальное значение яркости",
 			"brightness_scale_desc": "Граница яркости для целевого устройства",
-			"brightness_scale_case": "пример: 100 или 255 или 1024",
+			"brightness_scale_case": "пример: 100 · 255 · 1024",
 
 			"color_command_topic_name": "Топик для отправки цвета",
-			"color_command_topic_desc": "Командный MQTT-топик, куда отправляется значение выбранного цвета",
+			"color_command_topic_desc": "Командный топик, куда отправляется значение выбранного цвета",
 
 			"color_type_name": "Формат цвета",
-			"color_type_desc": "Возможные значения: RGB (255;0;0), HEX (#FFFFFF), HSV (255;100;100), HSL (255;100;100)",
+			"color_type_desc": "Описание: RGB (255;0;0), HEX (#FFFFFF), HSV (255;100;100), HSL (255;100;100)",
 
 			"temp_command_topic_name": "Топик для отправки температуры",
-			"temp_command_topic_desc": "Командный MQTT-топик, куда отправляется новое значение температуры света",
+			"temp_command_topic_desc": "Командный топик, куда отправляется новое значение температуры света",
 
 			"temp_state_topic_name": "Топик обратной связи для получения температуры",
-			"temp_state_topic_desc": "MQTT-топик обратной связи, от куда приходят значения температуры света",
+			"temp_state_topic_desc": "Топик обратной связи, от куда приходит значение температуры света",
 
 			"min_temp_name": "Минимальная температура",
 			"min_temp_desc": "Минимальное значение температуры света для целевого устройства",
-			"min_temp_case": "пример: 0 или 2700",
+			"min_temp_case": "пример: 0 · 2700",
 
 			"max_temp_name": "Максимальная температура",
 			"max_temp_desc": "Максимальное значение температуры света для целевого устройства",
-			"max_temp_case": "пример: 100 или 6500",
+			"max_temp_case": "пример: 100 · 6500",
 
 			"temp_measure_name": "Единица измерения температуры",
 			"temp_measure_desc": "Устанавливается в зависимости от единиц на целевом устройстве",
-			"temp_measure_case": "пример: K или %",
+			"temp_measure_case": "пример: K · %",
+
+			"climate_variant_cond_name": "Расширенный термостат",
+			"climate_variant_thermostat_name": "Обычный термостат",
+
+			"mode_command_topic_name": "Топик для установки текущего режима",
+			"mode_command_topic_desc": "Командный топик, куда отправляется значение режима из списка",
+
+			"mode_state_topic_name": "Топик обратной связи для текущего режима",
+			"mode_state_topic_desc": "Топик обратной связи, от куда приходит режим из списка",
+
+			"currentTemp_state_topic_name": "Топик обратной связи для получения температуры",
+			"currentTemp_state_topic_desc": "Топик обратной связи, от куда приходит значение текущей температуры",
+
+			"targetTemp_command_topic_name": "Топик для установки целевой температуры",
+			"targetTemp_command_topic_desc": "Командный топик, куда отправляется значение целевой температуры",
+
+			"targetTemp_state_topic_name": "Топик обратной связи для целевой температуры",
+			"targetTemp_state_topic_desc": "Топик обратной связи, от куда приходит значение целевой температуры",
+
+			"min_target_name": "Минимальное значение",
+			"min_target_desc": "Минимальное значение целевой температуры для целевого устройства",
+			"min_target_case": "пример: 10",
+
+			"max_target_name": "Максимальное значение",
+			"max_target_desc": "Максимальное значение целевой температуры для целевого устройства",
+			"max_target_case": "пример: 30",
+
+			"fan_command_topic_name": "Топик для установки режима вентилятора",
+			"fan_command_topic_desc": "Командный топик, куда отправляется сообщение с доп. режимом",
+
+			"fan_state_topic_name": "Топик обратной связи для режима вентилятора",
+			"fan_state_topic_desc": "Топик обратной связи, от куда приходит значение режима вентилятора",
+
+			"modes_name": "<abbr>Режимы при включенном состоянии <i>(предполагается настройка от 2-х до 5-ти режимов)</i></abbr>",
+			"modes_desc": "Режим",
+			"modes_icon_name": "Иконка режима",
+
+			"fan_modes_name": "<abbr>Обозначения дополнительных режимов <i>(поддерживается настройка до 5-ти режимов)</i></abbr>",
+			"fan_modes_desc": "Доп. режим",
+			"fan_modes_payload_case": "пример: 0 · 1 · 2",
+
+			"modes_title_name": "Названия режима, отображаемого в настройках",
+			"modes_title_case": "пример: Авто · нагрев · охлаждение",
+			"modes_color_name": "Цвет кругового ползунка при выборе режима",
+			"modes_payload_name": "Cообщение (команда) на прием или отправку в топик",
+			"modes_payload_case": "пример: auto · heat · cool",
+
+			"sensors_name": "<abbr>Датчики устройства <i>(поддерживается отображение до 3-х датчиков)</i></abbr>",
+			"sensors_desc": "Датчик",
 
 			"icon_open_name": "Иконка в открытом положении",
 			"icon_open_case": "пример: curtains",
@@ -1344,37 +1936,37 @@
 			"cover_variant_buttons_name": "Кнопки",
 
 			"orientation_name": "Направление",
-			"orientation_name_desc": "Используется для установки ориентации устройства",
+			"orientation_name_desc": "Используется для установки ориентации органов управления на панели",
 
 			"cover_horizontal_name": "Горизонтально",
 			"cover_vertical_name": "Вертикально",
 
 			"open_command_topic_name": "Топик для отправки команды на открытие",
-			"open_command_topic_desc": "Командный MQTT-топик, куда отправляется сообщение (команда) на открытие",
+			"open_command_topic_desc": "Командный топик, куда отправляется команда на открытие",
 
 			"close_command_topic_name": "Топик для отправки команды на закрытие",
-			"close_command_topic_desc": "Командный MQTT-топик, куда отправляется сообщение (команда) на закрытие",
+			"close_command_topic_desc": "Командный топик, куда отправляется команда на закрытие",
 
 			"stop_command_topic_name": "Топик для отправки команды на остановку",
-			"stop_command_topic_desc": "Командный MQTT-топик, куда отправляется сообщение (команда) на остановку",
+			"stop_command_topic_desc": "Командный топик, куда отправляется команда на остановку",
 
 			"payload_open_name": "Команда открытия",
 			"payload_open_desc": "Сообщение (команда) для открытия",
-			"payload_open_case": "пример: 100 или open или true",
+			"payload_open_case": "пример: 100 · open · true",
 
 			"payload_close_name": "Команда закрытия",
 			"payload_close_desc": "Сообщение (команда) для закрытия",
-			"payload_close_case": "пример: 0 или close или false",
+			"payload_close_case": "пример: 0 · close · false",
 
 			"payload_stop_name": "Команда остановки",
 			"payload_stop_desc": "Сообщение (команда) для остановки",
-			"payload_stop_case": "пример: stop или true",
+			"payload_stop_case": "пример: stop · true",
 
 			"position_command_topic_name": "Топик для установки позиции",
-			"position_command_topic_desc": "Командный MQTT-топик, куда отправляется новая заданная позиция для устройства",
+			"position_command_topic_desc": "Командный топик, куда отправляется новая заданная позиция для устройства",
 
 			"position_state_topic_name": "Топик обратной связи для получения позиции",
-			"position_state_topic_desc": "MQTT-топик обратной связи, от куда приходят значения о текущей позиции устройства",
+			"position_state_topic_desc": "Топик обратной связи, от куда приходит текущая позиция от устройства",
 
 			"position_open_name": "Конечная позиция в положении открыто",
 			"position_open_desc": "Порог обозначающий максимальный процент открытия устройства",
@@ -1391,6 +1983,8 @@
 			"help_position_close_name": "Вспомогательная конечная позиция в положении закрыто",
 			"help_position_close_desc": "Порог для округления до минимальной позиции",
 			"help_position_close_case": "пример: 5",
+
+			"lameli_name": "<abbr class='dash' style='margin-bottom: 10px'>Добавить управление ламелями</abbr>",
 
 			"Red": "Красный",
 			"Pink": "Розовый",

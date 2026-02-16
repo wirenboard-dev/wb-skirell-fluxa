@@ -87,10 +87,16 @@ def process_topics(object):
 			if key.startswith('icon'):
 				name = object[key]
 
-				if not any(name.startswith(pack) for pack in ['mdi']):
-					name = 'mdi-' + name
+				if not any(name.startswith(pack) for pack in ['mdi']): name = 'mdi-' + name
+				if not icons.get(name): name = 'mdi-border-radius'
 
 				object[key] = chr(int(icons[name], 16))
+
+			if object[key] == []: object[key] = None
+
+	elif isinstance(object, list):
+		for key in range(len(object)):
+			object[key] = process_topics(object[key])
 
 	return object
 
@@ -161,7 +167,21 @@ def generate_json(id):
 
 					for key in data: del block[key]
 
-					if 'variant' in data and 'type' in data['variant']: del data['variant']['type']
+					if 'variant' in data:
+						arrays = {'fan_modes': 'mode', 'modes': 'mode', 'sensors': 'sensor'}
+
+						for param, value in data['variant'].items():
+							if value and param in arrays and isinstance(value, list):
+								converted = {}
+
+								for i, item in enumerate(value, start=1):
+									name = f"{arrays[param]}_{i}"
+									converted[name] = item
+
+								data['variant'][param] = converted
+
+						if 'type' in data['variant']: del data['variant']['type']
+						if 'cover' in block['type'] and not 'lameli' in data['variant']: data['variant']['lameli'] = None
 
 					block['data'] = process_topics(data)
 					page['blocks'][j - 1] = block
