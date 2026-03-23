@@ -80,7 +80,8 @@
 											{"$ref": "#/definitions/block_climate"},
 											{"$ref": "#/definitions/block_cover"},
 											{"$ref": "#/definitions/block_sensor"},
-											{"$ref": "#/definitions/block_switch"}
+											{"$ref": "#/definitions/block_switch"},
+											{"$ref": "#/definitions/block_music"}
 										],
 										"options": {
 											"keep_oneof_values": false,
@@ -154,9 +155,9 @@
 					"type": "string",
 					"default": "",
 					"options": {
+						"inputAttributes": {"placeholder": "params_scene_case"},
 						"show_opt_in": true,
-						"grid_columns": 6,
-						"inputAttributes": {"placeholder": "params_scene_case"}
+						"grid_columns": 6
 					},
 					"propertyOrder": 1
 				},
@@ -165,9 +166,9 @@
 					"description": "param_2_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_scene_case"},
 						"show_opt_in": true,
-						"grid_columns": 6,
-						"inputAttributes": {"placeholder": "params_scene_case"}
+						"grid_columns": 6
 					},
 					"propertyOrder": 2
 				},
@@ -597,9 +598,9 @@
 					"description": "param_1_desc",
 					"type": "string",
 					"options": {
+						"inputAttributes": {"placeholder": "params_climate_case"},
 						"show_opt_in": true,
-						"grid_columns": 6,
-						"inputAttributes": {"placeholder": "params_climate_case"}
+						"grid_columns": 6
 					},
 					"propertyOrder": 1
 				},
@@ -761,8 +762,8 @@
 						"min_target": {
 							"title": "min_target_name",
 							"description": "min_target_desc",
-							"type": "string",
-							"pattern": "^-?\\d+(\\.\\d+)?$",
+							"type": "integer",
+							"minLength": 1,
 							"default": "10",
 							"options": {
 								"inputAttributes": {"placeholder": "min_target_case"},
@@ -773,10 +774,9 @@
 						"max_target": {
 							"title": "max_target_name",
 							"description": "max_target_desc",
-							"type": "string",
-							"pattern": "^-?\\d+(\\.\\d+)?$",
+							"type": "integer",
 							"minLength": 1,
-							"default": "30",		
+							"default": "30",
 							"options": {
 								"inputAttributes": {"placeholder": "max_target_case"},
 								"grid_columns": 6
@@ -866,7 +866,7 @@
 										"type": "string",
 										"minLength": 1,
 										"options": {
-											"inputAttributes": {"placeholder": "icon_sensors_case"},
+											"inputAttributes": {"placeholder": "icon_modes_case"},
 											"grid_columns": 6
 										},
 										"propertyOrder": 1
@@ -929,7 +929,7 @@
 										"type": "string",
 										"minLength": 1,
 										"options": {
-											"inputAttributes": {"placeholder": "icon_sensors_case"},
+											"inputAttributes": {"placeholder": "icon_fan_modes_case"},
 											"grid_columns": 6
 										},
 										"propertyOrder": 1
@@ -1723,6 +1723,396 @@
 			"required": ["type", "icon", "color", "OnOff_command_topic", "OnOff_state_topic", "payload_on", "payload_off"]
 		},
 
+		"block_music": {
+			"title": "block_music_name",
+			"type": "object",
+			"_format": "grid",
+			"properties": {
+				"type": {
+					"type": "string",
+					"enum": ["music"],
+					"options": {"hidden": true}
+				},
+				"param_1": {
+					"title": "param_1_name",
+					"description": "param_1_desc",
+					"type": "string",
+					"options": {
+						"inputAttributes": {"placeholder": "params_music_case"},
+						"show_opt_in": true,
+						"grid_columns": 4
+					},
+					"propertyOrder": 1
+				},
+				"param_2": {
+					"title": "param_2_name",
+					"description": "param_2_desc",
+					"type": "string",
+					"options": {
+						"inputAttributes": {"placeholder": "params_music_case"},
+						"show_opt_in": true,
+						"grid_columns": 4
+					},
+					"propertyOrder": 2
+				},
+				"param_3": {
+					"title": "param_3_name",
+					"description": "param_3_desc",
+					"type": "string",
+					"options": {
+						"inputAttributes": {"placeholder": "params_music_case"},
+						"show_opt_in": true,
+						"grid_columns": 4
+					},
+					"propertyOrder": 3
+				},
+				"setting_name": {
+					"title": "setting_name",
+					"description": "setting_name_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "setting_name_music_case"},
+						"grid_columns": 6
+					},
+					"propertyOrder": 4
+				},
+				"icon": {
+					"title": "icon_name",
+					"description": "icon_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "icon_music_case"},
+						"grid_columns": 6
+					},
+					"propertyOrder": 5
+				},
+				"name_state_topic": {
+					"title": "name_state_topic_name",
+					"description": "name_state_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 6
+				},
+				"artist_state_topic": {
+					"title": "artist_state_topic_name",
+					"description": "artist_state_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 7
+				},
+				"play_command_topic": {
+					"title": "play_command_topic_name",
+					"description": "play_command_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 4
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 8
+				},
+				"payload_play": {
+					"title": "payload_play_name",
+					"description": "payload_play_desc",
+					"type": "string",
+					"minLength": 1,
+					"default": "1",
+					"options": {
+						"inputAttributes": {"placeholder": "payload_on_case"},
+						"grid_columns": 2
+					},
+					"propertyOrder": 9
+				},
+				"pause_command_topic": {
+					"title": "pause_command_topic_name",
+					"description": "pause_command_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 4
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 10
+				},
+				"payload_pause": {
+					"title": "payload_pause_name",
+					"description": "payload_pause_desc",
+					"type": "string",
+					"minLength": 1,
+					"default": "0",
+					"options": {
+						"inputAttributes": {"placeholder": "payload_off_case"},
+						"grid_columns": 2
+					},
+					"propertyOrder": 11
+				},
+				"PlayPause_state_topic": {
+					"title": "PlayPause_state_topic_name",
+					"description": "PlayPause_state_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"show_opt_in": true,
+						"grid_columns": 12
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 12
+				},
+				"mute_command_topic": {
+					"title": "mute_command_topic_name",
+					"description": "mute_command_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 4
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 13
+				},
+				"mute_state_topic": {
+					"title": "mute_state_topic_name",
+					"description": "mute_state_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 4
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 14
+				},
+				"payload_mute_on": {
+					"title": "payload_mute_on_name",
+					"description": "payload_mute_on_desc",
+					"type": "string",
+					"minLength": 1,
+					"default": "1",
+					"options": {
+						"inputAttributes": {"placeholder": "payload_on_case"},
+						"grid_columns": 2
+					},
+					"propertyOrder": 15
+				},
+				"payload_mute_off": {
+					"title": "payload_mute_off_name",
+					"description": "payload_mute_off_desc",
+					"type": "string",
+					"minLength": 1,
+					"default": "0",
+					"options": {
+						"inputAttributes": {"placeholder": "payload_off_case"},
+						"grid_columns": 2
+					},
+					"propertyOrder": 16
+				},
+				"volume_command_topic": {
+					"title": "volume_command_topic_name",
+					"description": "volume_command_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 17
+				},
+				"volume_state_topic": {
+					"title": "volume_state_topic_name",
+					"description": "volume_state_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 6
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 18
+				},
+				"volume_min": {
+					"title": "volume_min_name",
+					"description": "volume_min_desc",
+					"type": "number",
+					"default": "100",
+					"options": {
+						"inputAttributes": {"placeholder": "volume_min_case"},
+						"grid_columns": 4
+					},
+					"propertyOrder": 19
+				},
+				"volume_max": {
+					"title": "volume_min_name",
+					"description": "volume_min_desc",
+					"type": "number",
+					"default": "100",
+					"options": {
+						"inputAttributes": {"placeholder": "volume_max_case"},
+						"grid_columns": 4
+					},
+					"propertyOrder": 20
+				},
+				"volume_step": {
+					"title": "volume_step_name",
+					"description": "volume_step_desc",
+					"type": "number",
+					"default": "1",
+					"options": {
+						"inputAttributes": {"placeholder": "volume_step_case"},
+						"grid_columns": 4
+					},
+					"propertyOrder": 21
+				},
+				"prev_command_topic": {
+					"title": "prev_command_topic_name",
+					"description": "prev_command_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 4
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 22
+				},
+				"payload_prev": {
+					"title": "payload_prev_name",
+					"description": "payload_prev_desc",
+					"type": "string",
+					"minLength": 1,
+					"default": "1",
+					"options": {
+						"inputAttributes": {"placeholder": "payload_on_case"},
+						"grid_columns": 2
+					},
+					"propertyOrder": 23
+				},
+				"next_command_topic": {
+					"title": "next_command_topic_name",
+					"description": "next_command_topic_desc",
+					"type": "string",
+					"minLength": 1,
+					"options": {
+						"inputAttributes": {"placeholder": "topic_format"},
+						"wb": {"data": "devices"},
+						"grid_columns": 4
+					},
+					"_format": "wb-autocomplete",
+					"propertyOrder": 24
+				},
+				"payload_next": {
+					"title": "payload_next_name",
+					"description": "payload_next_desc",
+					"type": "string",
+					"minLength": 1,
+					"default": "1",
+					"options": {
+						"inputAttributes": {"placeholder": "payload_on_case"},
+						"grid_columns": 2
+					},
+					"propertyOrder": 25
+				},
+				"channels": {
+					"title": "channels_name",
+					"type": "array",
+					"items": {
+						"title": "channels_desc",
+						"type": "object",
+						"properties": {
+							"icon": {
+								"title": "channels_icon_name",
+								"type": "string",
+								"minLength": 1,
+								"options": {
+									"inputAttributes": {"placeholder": "channels_icon_case"},
+									"grid_columns": 6
+								},
+								"propertyOrder": 1
+							},
+							"title": {
+								"title": "channels_title_name",
+								"type": "string",
+								"minLength": 1,
+								"options": {
+									"inputAttributes": {"placeholder": "channels_title_case"},
+									"grid_columns": 6
+								},
+								"propertyOrder": 2
+							},
+							"command_topic": {
+								"title": "channels_command_topic_name",
+								"type": "string",
+								"minLength": 1,
+								"options": {
+									"inputAttributes": {"placeholder": "topic_format_short"},
+									"grid_columns": 6
+								},
+								"propertyOrder": 3
+							},
+							"state_topic": {
+								"title": "channels_state_topic_name",
+								"type": "string",
+								"minLength": 1,
+								"options": {
+									"inputAttributes": {"placeholder": "topic_format_short"},
+									"grid_columns": 6
+								},
+								"propertyOrder": 4
+							},
+							"payload": {
+								"title": "channels_payload_name",
+								"type": "string",
+								"minLength": 1,
+								"options": {
+									"inputAttributes": {"placeholder": "channels_payload_case"},
+									"grid_columns": 6
+								},
+								"propertyOrder": 5
+							}
+						},
+						"required": ["icon", "payload"]
+					},
+					"options": {
+						"wb": {
+							"disable_title": true,
+							"disable_panel": true
+						},
+						"disable_collapse": true,
+						"array_controls_top": true,
+						"disable_array_delete_last_row": true
+					},
+					"_format": "table",
+					"propertyOrder": 26
+				}
+			},
+			"required": ["type", "setting_name"]
+		},
+
 		"color_picker": {
 			"$ref": "#/definitions/block_climate/definitions/color_picker",
 			"note": "prevent bug while using $ref from another block"
@@ -1736,15 +2126,16 @@
 
 	"translations": {
 		"en": {
-			"config_title": "Skirell Fluxa panels configurator"
+			"config_title": "Skirell Fluxa panels configurator",
+			"config_desc": "<p class='alert alert-success'></p>",
+
+			"style": "<- css inject -><style>h3.je-header label abbr { font-size: var(--font-size-medium) } abbr.dash { display: inline-block; border-bottom: 1px dashed } abbr.solid { border-bottom: 1px solid } [data-schemapath*='.upload'] > select {display: none} option[value='color_red']{color: #FF4D4D} option[value='color_pink']{color: #FF3D5E} option[value='color_orange']{color: #FF974D} option[value='color_yellow']{color: #FFE14D} option[value='color_mint']{color: #4DFFA6}option[value='color_green']{color: #4DFF5B} option[value='color_cyan']{color: #4DFFF0} option[value='color_blue']{color: #4DC3FF} option[value='color_dark_blue']{color: #3D6EFF} option[value='color_indigo']{color: #5D3DFF} option[value='color_purple']{color: #AE3DFF} option[value='color_brown']{color: #B34A00}</style>",
+
+			"panel_title": "{{ self.name | ·}} {{ self.id }} {{ self.link }}"
 		},
 		"ru": {
 			"config_title": "Конфигуратор панелей Skirell Fluxa",
 			"config_desc": "<p class='alert alert-success'>При открытии конфигуратора происходит авто-добавление панелей в список с загрузкой текущей конфигурации (до тех пор пока подключены к брокеру).<br>При сохранении – загрузка измененных конфигураций на доступные в сети панели. Аттрибут «последняя выгрузка» отображает последний известный статус.</p>",
-
-			"style": "<- css inject -><style>h3.je-header label abbr { font-size: var(--font-size-medium) } abbr.dash { display: inline-block; border-bottom: 1px dashed } abbr.solid { border-bottom: 1px solid } [data-schemapath*='.upload'] > select {display: none}</style>",
-
-			"panel_title": "{{ self.name | ·}} {{ self.id }} {{ self.link }}",
 
 			"panel_element": "Панель",
 			"panel_name_title": "Наименование панели",
@@ -1772,8 +2163,10 @@
 			"block_cover_name": "Шторы",
 			"block_sensor_name": "Датчик",
 			"block_switch_name": "Переключатель",
+			"block_music_name": "Музыка",
 
 			"topic_format": "формат: device/control или полный топик с брокера",
+			"topic_format_short": "device/control или полный топик",
 
 			"param_1_name": "Первый блок текста (малый размер)",
 			"param_1_desc": "Используется для отображения текста в самом блоке",
@@ -1790,6 +2183,7 @@
 			"params_cover_case": "пример: название шторы · комнаты · типа · любой другой текст",
 			"params_sensor_case": "пример: температура · влажность",
 			"params_switch_case": "пример: название переключателя · комнаты · режима · любой другой текст",
+			"params_music_case": "пример: название ресивера · комнаты · любой другой текст",
 
 			"icon_name": "Иконка, отображаемая в блоке",
 			"icon_desc": "Поддерживается набор иконок <a href='https://pictogrammers.com/library/mdi' target='_blank'>Material Design Icons (MDI)</a>",
@@ -1797,11 +2191,14 @@
 			"icon_scene_case": "пример: weather-night",
 			"icon_light_case": "пример: floor-lamp",
 			"icon_climate_case": "пример: air-conditioner",
-			"icon_sensors_case": "пример: fire · snowflake",
+			"icon_modes_case": "пример: fire · snowflake",
+			"icon_sensors_case": "пример: water-percent",
+			"icon_fan_modes_case": "пример: fan-speed-1",
 			"icon_switch_case": "пример: fan",
+			"icon_music_case": "пример: music",
 
 			"color_name": "Цвет блока в активном состоянии",
-			"color_desc": "Используется как цвет активного состояния устройства, серый цвет – неактивно <style>option[value='color_red']{color: #FF4D4D} option[value='color_pink']{color: #FF3D5E} option[value='color_orange']{color: #FF974D} option[value='color_yellow']{color: #FFE14D} option[value='color_mint']{color: #4DFFA6}option[value='color_green']{color: #4DFF5B} option[value='color_cyan']{color: #4DFFF0} option[value='color_blue']{color: #4DC3FF} option[value='color_dark_blue']{color: #3D6EFF} option[value='color_indigo']{color: #5D3DFF} option[value='color_purple']{color: #AE3DFF} option[value='color_brown']{color: #B34A00}</style>",
+			"color_desc": "Используется как цвет активного состояния устройства, серый цвет – неактивно",
 
 			"command_topic_name": "Топик для отправки команды",
 			"command_topic_desc": "Командный топик, в который отправляется значение при нажатии на блок",
@@ -1816,7 +2213,7 @@
 
 			"payload_off_name": "Команда выключения",
 			"payload_off_desc": "Сообщение (значение) для выключения",
-			"payload_off_case": "примыер: 0 · false · OFF",
+			"payload_off_case": "пример: 0 · false · OFF",
 
 			"OnOff_command_topic_name": "Топик для отправки команды",
 			"OnOff_command_topic_desc": "Командный топик, в который отправляется значение при нажатии на блок",
@@ -1861,6 +2258,7 @@
 			"setting_name_light_case": "пример: Торшер · бра",
 			"setting_name_climate_case": "пример: Кондиционер · теплый пол",
 			"setting_name_cover_case": "пример: Штора · ворота",
+			"setting_name_music_case": "пример: Плеер · мультирум",
 
 			"variant_type_name": "<abbr class='dash'>Подтип устройства</abbr>",
 			"variant_type_name_desc": "Используется для выбора механики работы устройства и интерфейса панели",
@@ -1930,6 +2328,8 @@
 			"max_target_desc": "Максимальное значение целевой температуры для целевого устройства",
 			"max_target_case": "пример: 30",
 
+			"target_pattern": "Допускается только числовое значение",
+
 			"fan_command_topic_name": "Топик для установки режима вентилятора",
 			"fan_command_topic_desc": "Командный топик, куда отправляется сообщение с доп. режимом",
 
@@ -1978,15 +2378,15 @@
 			"stop_command_topic_desc": "Командный топик, куда отправляется команда на остановку",
 
 			"payload_open_name": "Команда открытия",
-			"payload_open_desc": "Сообщение (команда) для открытия",
+			"payload_open_desc": "Сообщение (значение) для открытия",
 			"payload_open_case": "пример: 100 · open · true",
 
 			"payload_close_name": "Команда закрытия",
-			"payload_close_desc": "Сообщение (команда) для закрытия",
+			"payload_close_desc": "Сообщение (значение) для закрытия",
 			"payload_close_case": "пример: 0 · close · false",
 
 			"payload_stop_name": "Команда остановки",
-			"payload_stop_desc": "Сообщение (команда) для остановки",
+			"payload_stop_desc": "Сообщение (значение) для остановки",
 			"payload_stop_case": "пример: stop · true",
 
 			"position_command_topic_name": "Топик для установки позиции",
@@ -2012,6 +2412,84 @@
 			"help_position_close_case": "пример: 5",
 
 			"lameli_name": "<abbr class='dash' style='margin-bottom: 10px'>Добавить возможность управлять ламелями</abbr>",
+
+			"name_state_topic_name": "Топик обратной связи для получения наименования песни",
+			"name_state_topic_desc": "Топик обратной связи, от куда приходит сообщение с наименованием песни",
+
+			"artist_state_topic_name": "Топик обратной связи для получения названия артиста",
+			"artist_state_topic_desc": "Топик обратной связи, от куда приходит сообщение с названием артиста",
+
+			"play_command_topic_name": "Топик управления продолжения воспроизведения",
+			"play_command_topic_desc": "Командный топик, куда отправляется команда",
+
+			"pause_command_topic_name": "Топик управления остановкой воспроизведения",
+			"pause_command_topic_desc": "Командный топик, куда отправляется команда",
+
+			"PlayPause_state_topic_name": "Топик для получения состояния воспроизведения",
+			"PlayPause_state_topic_desc": "Топик обратной связи, от куда приходит состояние. Влияет на отображение иконки управления воспроизведением",
+
+			"payload_play_name": "Команда продолжения",
+			"payload_play_desc": "Сообщение (значение)",
+
+			"payload_pause_name": "Команда паузы",
+			"payload_pause_desc": "Сообщение (значение)",
+
+			"mute_command_topic_name": "Топик управления беззвучным режимом",
+			"mute_command_topic_desc": "Командный топик, куда отправляется команда управления",
+
+			"mute_state_topic_name": "Топик обратной связи для получения беззвучного режима",
+			"mute_state_topic_desc": "Топик обратной связи, от куда приходит состояние режима",
+
+			"payload_mute_on_name": "Команда выключения звука",
+			"payload_mute_on_desc": "Сообщение (значение)",
+
+			"payload_mute_off_name": "Команда включения звука",
+			"payload_mute_off_desc": "Сообщение (значение)",
+
+			"volume_command_topic_name": "Топик для отправки команды на изменение громкости",
+			"volume_command_topic_desc": "Командный топик, куда отправляется изменение громкости",
+
+			"volume_state_topic_name": "Топик обратной связи для получения громкости",
+			"volume_state_topic_desc": "Топик обратной связи, от куда приходит текущая громкость",
+
+			"volume_min_name": "Минимальный уровень громкости",
+			"volume_min_desc": "Органичение по регулировке громкости",
+			"volume_min_case": "пример: 0 · 20",
+
+			"volume_max_name": "Максимальный уровень громкости",
+			"volume_max_desc": "Органичение по регулировке громкости",
+			"volume_max_case": "пример: 80 · 100",
+
+			"volume_step_name": "Шаг изменения громкости",
+			"volume_step_desc": "Шаг при нажатии кнопок увелечения/уменьшения громкости",
+			"volume_step_case": "пример: 1 · 5",
+
+			"prev_command_topic_name": "Топик для включения предыдущей песни",
+			"prev_command_topic_desc": "Командный топик, куда отправляется команда переключения",
+
+			"payload_prev_name": "Команда предыдущей песни",
+			"payload_prev_desc": "Сообщение (значение)",
+
+			"next_command_topic_name": "Топик для включения следующей песни",
+			"next_command_topic_desc": "Командный топик, куда отправляется команда переключения",
+
+			"payload_next_name": "Команда следующей песни",
+			"payload_next_desc": "Сообщение (значение)",
+
+			"channels_name": "Список доступных каналов",
+			"channels_desc": "Канал",
+
+			"channels_icon_name": "Иконка канала",
+			"channels_icon_case": "пример: radio",
+
+			"channels_title_name": "Наименование канала",
+			"channels_title_case": "пример: AUX · USB",
+
+			"channels_command_topic_name": "Топик для отправки команды на изменение",
+			"channels_state_topic_name": "Топик для получения текущего канала",
+
+			"channels_payload_name": "Cообщение на приём или отправку",
+			"channels_payload_case": "пример: 1 · 105 · playlist",
 
 			"Red": "Красный",
 			"Pink": "Розовый",

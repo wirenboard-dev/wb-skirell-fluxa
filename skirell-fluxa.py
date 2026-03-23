@@ -153,7 +153,6 @@ def update_checksum():
 						try:
 							response = requests.post(
 								url=f'http://{target}/upload',
-								data={'refresh': 'true'},
 								files={'file': ('data.json', io.BytesIO(json.dumps(config).encode('utf-8')), 'application/json')}
 							)
 
@@ -166,6 +165,8 @@ def update_checksum():
 						except Exception as error: pass
 					else:
 						panel['upload'] = 'no connection'
+						panel['crc'] = hash + '!'
+
 				except requests.RequestException: pass
 
 		if panel.get('link'): del panel['link']
@@ -218,6 +219,16 @@ def generate_json(screens):
 						if 'type' in data['variant']: del data['variant']['type']
 						if 'cover' in block['type'] and not 'lameli' in data['variant']: data['variant']['lameli'] = None
 
+					if 'music' in block['type'] and 'channels' in data:
+						if (value := data['channels'])and isinstance(value, list):
+							converted = {}
+
+							for i, item in enumerate(value, start=1):
+								name = f"channel_{i}"
+								converted[name] = item
+
+							data['channels'] = converted
+
 					block['data'] = process_topics(data)
 					page['blocks'][j - 1] = block
 		return {'screens': screens}
@@ -243,7 +254,7 @@ def generate_file(id):
 def import_config(url):
 	def clean_element(value, key=None):
 		if isinstance(value, dict):
-			return {k: clean_element(v, k) for k, v in value.items() if v is not None}
+			return {k: clean_element(v, k) for k, v in value.items() if v is not None and v != ""}
 		elif isinstance(value, list):
 			return [clean_element(i) for i in value if i is not None]
 		else:
@@ -254,6 +265,9 @@ def import_config(url):
 				value = format(ord(value), 'X')
 				value = glyph.get(value, 'mdi-border-radius')
 				value = value.replace('mdi-', '')
+
+			if 'min_target' in key or 'max_target' in key:
+				value = int(value)
 
 			return value
 
@@ -283,14 +297,16 @@ def import_config(url):
 									del block['data']
 
 								if 'variant' in block:
-									variant = block['variant']
-
-									if isinstance(variant, dict):
-										for item in ['fan_modes', 'modes', 'sensors']:
+									if (variant := block['variant']) and isinstance(variant, dict):
+										for item in ['fan_modes', 'modes', 'sensors', 'channels']:
 											if item in variant and isinstance(variant[item], dict):
 												variant[item] = list(variant[item].values())
 
 									variant['type'] = block.get('variant_type', '')
+
+								if 'music' in block['type'] and 'channels' in block:
+									if isinstance(block['channels'], dict):
+										block['channels'] = list(block['channels'].values())
 
 								screen['blocks'][i] = clean_element(block)
 					return data['screens']
