@@ -1,0 +1,13 @@
+{
+	"id": "integrations",
+	"children": [
+		{
+			"id": "skirell",
+			"url": "configs/edit/~2Fusr~2Fshare~2Fwb-mqtt-confed~2Fschemas~2Fwb-skirell-fluxa.schema.json",
+			"title": {
+				"en": "Skirell Fluxa Panels",
+				"ru": "Панели Skirell Fluxa"
+			}
+		}
+	]
+}
