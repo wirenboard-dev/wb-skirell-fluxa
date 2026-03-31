@@ -1,0 +1,94 @@
+name: Build and create release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+env:
+  DEB_NAME: 'wb-skirell-fluxa'
+  MAINTAINER: 'Alexey Gamov <dev@alexey-gamov.ru>'
+  DESC: 'Skirell Fluxa panels configurator for Wiren Board'
+  DEPENDS: 'wb-mqtt-confed (>= 1.8.1)'
+
+jobs:
+  build-linux-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Prepare files
+        run: |
+          mkdir -p .debpkg/usr/share/wb-mqtt-homeui/nginx/includes
+          mkdir -p .debpkg/usr/share/wb-mqtt-homeui/custom-menu
+          mkdir -p .debpkg/usr/share/wb-mqtt-confed/schemas
+          mkdir -p .debpkg/usr/lib/cgi-bin
+          mkdir -p .debpkg/etc
+          mkdir -p .debpkg/DEBIAN
+
+          cp config/wb-skirell-fluxa.schema.json  .debpkg/usr/share/wb-mqtt-confed/schemas
+          cp config/wb-skirell-fluxa.conf         .debpkg/etc
+
+          cp web/skirell-icons.json   .debpkg/usr/lib/cgi-bin
+          cp web/skirell-fluxa.py     .debpkg/usr/lib/cgi-bin
+
+          cp nginx/skirell-configurator.json  .debpkg/usr/share/wb-mqtt-homeui/custom-menu
+          cp nginx/skirell-fluxa-path.conf    .debpkg/usr/share/wb-mqtt-homeui/nginx/includes
+
+          chmod +x .debpkg/usr/lib/cgi-bin/skirell-fluxa.py
+
+          echo -e "#!/bin/bash\nsystemctl restart nginx.service" > .debpkg/DEBIAN/postinst
+          chmod +x .debpkg/DEBIAN/postinst
+
+          echo -e "#!/bin/sh\n\nset -e\n\nif [ \"\$1\" = \"purge\" ]; then\n    rm -f /etc/wb-skirell-fluxa.conf\nfi\n\nsystemctl restart nginx.service" > .debpkg/DEBIAN/postrm
+          chmod +x .debpkg/DEBIAN/postrm
+      - name: Build armhf
+        uses: jiro4989/build-deb-action@v4.3.0
+        id: build
+        with:
+          package: ${{ env.DEB_NAME }}
+          package_root: .debpkg
+          maintainer: ${{ env.MAINTAINER }}
+          depends: ${{ env.DEPENDS }}
+          version: ${{ github.ref }}
+          arch: armhf
+          desc: ${{ env.DESC }}
+      - name: Build arm64
+        uses: jiro4989/build-deb-action@v4.3.0
+        id: build64
+        with:
+          package: ${{ env.DEB_NAME }}
+          package_root: .debpkg
+          maintainer: ${{ env.MAINTAINER }}
+          depends: ${{ env.DEPENDS }}
+          version: ${{ github.ref }}
+          arch: arm64
+          desc: ${{ env.DESC }}
+      - name: Rename files
+        run: |
+          mv ${{steps.build.outputs.file_name}} wb-skirell-fluxa_armhf.deb
+          mv ${{steps.build64.outputs.file_name}} wb-skirell-fluxa_arm64.deb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact-deb
+          path: |
+            ./*.deb
+
+  create-release-and-upload-files:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs:
+      - build-linux-packages
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v8.0.1
+        with:
+          name: artifact-deb
+      - name: Create release
+        id: create-release
+        uses: ncipollo/release-action@v1.21.0
+        with:
+          name: ${{ github.ref_name }}
+          artifacts: "./*.deb"
