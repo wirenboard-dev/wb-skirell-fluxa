@@ -12,6 +12,14 @@ if dpkg-query -W -f='${Version}' wb-mqtt-homeui 2>/dev/null; then
     fi
 fi
 
+CONFIG='wb-skirell-fluxa.conf'
+
+if [ ! -f "/mnt/data/etc/$CONFIG" ]; then
+   mv "/etc/$CONFIG" "/mnt/data/etc/$CONFIG"
+fi
+
+ln -Tfs "/mnt/data/etc/$CONFIG" "/etc/$CONFIG"
+
 systemctl restart nginx.service
 
 exit 0
